@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import logo from "../images/logo.jpg"
 import { LargeInput } from "../Components/common"
 import { LargeButton } from "../Components/common.js"
 
 class HomePage extends Component {
     render() {
         return <div className="grid-x">
-            <div className="cell medium-5 promo-intro">
+            <div className="cell medium-4 promo-intro">
               <div className="grid-container">
                 <div className="promo-content grid-container">
                   <div className="promo-header">
@@ -25,15 +24,15 @@ class HomePage extends Component {
                 </div>
               </div>
             </div>
-            <div className="cell medium-6 medium-offset-1 login-form">
+            <div className="cell medium-7 medium-offset-1 login-form">
               <div className="grid-container">
                 <div className="login-sign-up-form">
-                  <div className="logo">
-                    <img src={logo} alt="logo" />
-                  </div>
                   <form>
-                    <div className="grid-x grid-padding-x">
-                      <div className="medium-8 cell mb-3">
+                    <div className="grid-x grid-padding-x ml-5">
+                      <div className="medium-6 cell mb-3">
+                      <div className="login-sign-up-header">
+                        <h2>Log in</h2>
+                      </div>
                         <div className="mb-3">
                             <LargeInput placeholder="Your email adress" type="email" subClass="input-border-top" />
                             <LargeInput placeholder="Password" type="password" subClass="input-border-bottom" />
