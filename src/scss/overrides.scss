@@ -1816,6 +1816,19 @@ body, html {
 img {
     width: 100%;
 }
-.button {
-  border-radius: 5px;
+
+input {
+  margin: 0 !important;
+}
+
+a {
+      color: rgba(19,20,49,.4);
+}
+
+a:hover{
+  background: none;
+}
+.button:hover {
+  background-color: $green;
+  color: black;
 }
