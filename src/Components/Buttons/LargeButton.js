@@ -1,14 +1,17 @@
-import React, { Component } from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class LargeButton extends Component {
-  render() {
-    const { onClick, text } = this.props;
-    return (
-        <button className="button primary-button large expanded" onClick={onClick}>
-        {text}
-      </button>
-    );
-  }
-}
+const LargeButton = (props) => {
+  const { text } = props;
+  return (
+    <button className="button primary-button large expanded" type="submit">
+      {text}
+    </button>
+  );
+};
+
+LargeButton.propTypes = {
+  text: PropTypes.string.isRequired,
+};
 
 export { LargeButton };
