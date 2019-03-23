@@ -1,47 +1,65 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LargeInput, LargeButton } from '../common';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const SignUpForm = props => (
   <div>
-    <div className="login-sign-up-header">
-      <h2>Sign Up</h2>
-    </div>
-    <div className="mb-3">
-      <LargeInput
-        placeholder="Your email adress"
+    <Grid container direction="column" justify="center" alignItems="center">
+      <div className="login-sign-up-header">
+        <h2>CREATE AN ACCOUNT</h2>
+      </div>
+      <TextField
+        label="Email"
         type="email"
-        subClass="input-border-top"
         name="email"
-        handleInputChange={props.handleInputChange}
+        autoComplete="email"
+        margin="normal"
+        variant="outlined"
+        fullWidth
+        onChange={props.handleInputChange}
         value={props.email}
         id="email"
       />
-      <LargeInput
-        placeholder="Password"
+      <TextField
+        label="Password"
         type="password"
-        subClass="input-border-bottom"
+        autoComplete="current-password"
+        margin="normal"
+        variant="outlined"
+        fullWidth
         name="password"
-        handleInputChange={props.handleInputChange}
+        onChange={props.handleInputChange}
         value={props.password}
         id="password"
       />
-      <LargeInput
-        placeholder="Confirm Password"
+      <TextField
+        label="Password"
         type="password"
-        subClass="input-border-bottom"
+        autoComplete="current-password"
+        margin="normal"
+        variant="outlined"
+        fullWidth
         name="passwordConf"
-        handleInputChange={props.handleInputChange}
+        onChange={props.handleInputChange}
         value={props.passwordConf}
         id="passwordConf"
       />
-    </div>
-    <LargeButton text="Sign Up" />
+      <Button variant="contained" className="mt-3 dark-btn" type="submit">
+        CREATE AN ACCOUNT
+      </Button>
+
+      <Button onClick={props.showLoginForm} className="mt-5">
+        LOGIN
+      </Button>
+    </Grid>
   </div>
 );
 
 SignUpForm.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
+  showLoginForm: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   passwordConf: PropTypes.string.isRequired,

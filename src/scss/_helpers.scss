@@ -2,11 +2,13 @@ body {
   font-family: roboto;
   margin: 0;
   font-weight: 300 !important;
+  color: $black;
 }
 
-h1 {
+h1,h2 {
   font-weight: 300 !important;
 }
+
 
 .text-right {
   text-align: right;
@@ -1843,4 +1845,10 @@ a{
 
 a:hover {
   text-decoration: underline
+}
+
+.dark-btn {
+    background-color: $dark-blue !important;
+    color: white !important;   
+    width: 100% !important;
 }

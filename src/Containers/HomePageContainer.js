@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+// import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -52,70 +54,52 @@ class HomePage extends Component {
     render() {
       return (
         <div className="promo-intro">
-          <Grid container spacing={15}>
-            <Grid item xs={9}>
-              <div className="promo-content">
-                <img src={Logo} alt="" className="logo" />
-                <div className="promo-header">
-                  <h1>All in one e-commerce management solution</h1>
+          <Grid container>
+            <Hidden smDown>
+              <Grid item md={9}>
+                <div className="promo-content">
+                  <img src={Logo} alt="" className="logo" />
+                  <div className="promo-header">
+                    <h1>All in one e-commerce management solution</h1>
+                  </div>
+                  <div className="cta-text">
+                    <p>
+                      Blast off today and join the fun? Getting started
+                      <br />
+                      is only a few click away
+                    </p>
+                  </div>
+                  <Link to="" className="button cta-button large">
+                    Explore More
+                  </Link>
                 </div>
-                <div className="cta-text">
-                  <p>
-                    Blast off today and join the fun? Getting started
-                    <br />
-                    is only a few click away
-                  </p>
-                </div>
-                <Link to="" className="button cta-button large">
-                  Explore More
-                </Link>
-              </div>
-            </Grid>
+              </Grid>
+            </Hidden>
 
-            <Grid item xs={3} className="login-sign-up">
+            <Grid item md={3} xs={12} className="login-sign-up">
               {this.state.activeTab ? (
-                <form onSubmit={this.handleLogin.bind(this)}>
+                <form
+                  onSubmit={this.handleLogin.bind(this)}
+                  className="login-form"
+                >
                   <LoginForm
                     handleInputChange={this.handleInputChange.bind(this)}
                     email={this.state.email}
                     password={this.state.password}
+                    showSignUpForm={this.showSignUpForm.bind(this)}
                   />
                 </form>
               ) : (
-                <form onSubmit={this.handleRegister.bind(this)}>
+                <form onSubmit={this.handleRegister.bind(this)} className="login-form">
                   <SignUpForm
                     handleInputChange={this.handleInputChange.bind(this)}
                     email={this.state.email}
                     password={this.state.password}
                     passwordConf={this.state.passwordConf}
+                    showLoginForm={this.showLoginForm.bind(this)}
                   />
                 </form>
               )}
-
-              {this.state.activeTab ? (
-                <button
-                  onClick={this.showSignUpForm.bind(this)}
-                  type="button"
-                  className="clear button"
-                >
-                  Sign Up
-                </button>
-              ) : (
-                <button
-                  onClick={this.showLoginForm.bind(this)}
-                  type="button"
-                  className="clear button"
-                >
-                  Sign In
-                </button>
-              )}
-              <button
-                onClick={this.showLoginForm.bind(this)}
-                type="button"
-                className="clear button"
-              >
-                Forgot Password
-              </button>
             </Grid>
           </Grid>
         </div>

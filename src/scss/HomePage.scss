@@ -1,5 +1,5 @@
     .logo {
-        width: 10%;
+        width: 12%;
     }
     
     .promo-intro {
@@ -11,17 +11,19 @@
         color: white;
     }
 
-    .promo {
-        padding: 5%;
-    }
-
     .promo-content {
+        padding: 9%;
         color: white;
     }
 
     .login-sign-up {
         background-color: white;
-        color: rgba(0, 0, 0, 0.87);
+        color: $black;
         height: 100vh;
     }
     
+
+    .login-form {
+        padding: 15%;
+        padding-top: 25%; 
+    }

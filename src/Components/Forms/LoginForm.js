@@ -1,38 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LargeInput, LargeButton } from '../common';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const LoginForm = props => (
   <div>
-    <div className="login-sign-up-header">
-      <h2>Sign in</h2>
-    </div>
-    <div className="mb-3">
-      <LargeInput
-        placeholder="Your email adress"
+    <Grid container direction="column" justify="center" alignItems="center">
+      <div className="login-sign-up-header">
+        <h2>LOGIN TO YOUR ACCOUNT</h2>
+      </div>
+      <TextField
+        label="Email"
         type="email"
-        subClass="input-border-top"
         name="email"
-        handleInputChange={props.handleInputChange}
+        autoComplete="email"
+        margin="normal"
+        variant="outlined"
+        fullWidth
+        onChange={props.handleInputChange}
         value={props.email}
         id="email"
       />
-      <LargeInput
-        placeholder="Password"
+      <TextField
+        label="Password"
         type="password"
-        subClass="input-border-bottom"
+        autoComplete="current-password"
+        margin="normal"
+        variant="outlined"
+        fullWidth
         name="password"
-        handleInputChange={props.handleInputChange}
+        onChange={props.handleInputChange}
         value={props.password}
         id="password"
       />
-    </div>
-    <LargeButton text="Sign In" />
+      <Button variant="contained" className="mt-3 dark-btn" type="submit">
+        LOGIN
+      </Button>
+
+      <Button onClick={props.showSignUpForm} className="mt-5">
+        CREATE AN ACCOUNT
+      </Button>
+    </Grid>
   </div>
 );
 
 LoginForm.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
+  showSignUpForm: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
 };
