@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
+import Slide from '@material-ui/core/Slide';
 // import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -16,6 +17,7 @@ class HomePage extends Component {
       email: '',
       password: '',
       passwordConf: '',
+      fade: false,
     };
 
     showLoginForm() {
@@ -27,6 +29,7 @@ class HomePage extends Component {
     showSignUpForm() {
       this.setState({
         activeTab: false,
+        fade2: true,
       });
     }
 
@@ -78,28 +81,30 @@ class HomePage extends Component {
 
             <Grid item md={3} xs={12} className="login-sign-up">
               {this.state.activeTab ? (
-                <form
-                  onSubmit={this.handleLogin.bind(this)}
-                  className="login-form"
-                >
+                <Slide direction="left" in mountOnEnter unmountOnExit timeout={1300}>
                   <LoginForm
+                    onSubmit={this.handleLogin.bind(this)}
                     handleInputChange={this.handleInputChange.bind(this)}
                     email={this.state.email}
                     password={this.state.password}
                     showSignUpForm={this.showSignUpForm.bind(this)}
                   />
-                </form>
-              ) : (
-                <form onSubmit={this.handleRegister.bind(this)} className="login-form">
-                  <SignUpForm
-                    handleInputChange={this.handleInputChange.bind(this)}
-                    email={this.state.email}
-                    password={this.state.password}
-                    passwordConf={this.state.passwordConf}
-                    showLoginForm={this.showLoginForm.bind(this)}
-                  />
-                </form>
-              )}
+                </Slide>
+              ) : null}
+              {!this.state.activeTab ? (
+                (
+                  <Slide direction="left" in mountOnEnter unmountOnExit timeout={1300}>
+                    <SignUpForm
+                      onSubmit={this.handleRegister.bind(this)}
+                      handleInputChange={this.handleInputChange.bind(this)}
+                      email={this.state.email}
+                      password={this.state.password}
+                      passwordConf={this.state.passwordConf}
+                      showLoginForm={this.showLoginForm.bind(this)}
+                    />
+                  </Slide>
+                )
+              ) : null}
             </Grid>
           </Grid>
         </div>

@@ -5,42 +5,44 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 const LoginForm = props => (
-  <div>
+  <div className="login-form">
     <Grid container direction="column" justify="center" alignItems="center">
-      <div className="login-sign-up-header">
-        <h2>LOGIN TO YOUR ACCOUNT</h2>
-      </div>
-      <TextField
-        label="Email"
-        type="email"
-        name="email"
-        autoComplete="email"
-        margin="normal"
-        variant="outlined"
-        fullWidth
-        onChange={props.handleInputChange}
-        value={props.email}
-        id="email"
-      />
-      <TextField
-        label="Password"
-        type="password"
-        autoComplete="current-password"
-        margin="normal"
-        variant="outlined"
-        fullWidth
-        name="password"
-        onChange={props.handleInputChange}
-        value={props.password}
-        id="password"
-      />
-      <Button variant="contained" className="mt-3 dark-btn" type="submit">
-        LOGIN
-      </Button>
+      <form onSubmit={props.onSubmit}>
+        <div className="login-sign-up-header">
+          <h2>LOGIN TO YOUR ACCOUNT</h2>
+        </div>
+        <TextField
+          label="Email"
+          type="email"
+          name="email"
+          autoComplete="email"
+          margin="normal"
+          variant="outlined"
+          fullWidth
+          onChange={props.handleInputChange}
+          value={props.email}
+          id="email"
+        />
+        <TextField
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          margin="normal"
+          variant="outlined"
+          fullWidth
+          name="password"
+          onChange={props.handleInputChange}
+          value={props.password}
+          id="password"
+        />
+        <Button variant="contained" className="mt-3 dark-btn" type="submit">
+          LOGIN
+        </Button>
 
-      <Button onClick={props.showSignUpForm} className="mt-5">
-        CREATE AN ACCOUNT
-      </Button>
+        <Button onClick={props.showSignUpForm} className="mt-5 text-center" fullWidth>
+          CREATE AN ACCOUNT
+        </Button>
+      </form>
     </Grid>
   </div>
 );
@@ -48,6 +50,7 @@ const LoginForm = props => (
 LoginForm.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   showSignUpForm: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
 };
