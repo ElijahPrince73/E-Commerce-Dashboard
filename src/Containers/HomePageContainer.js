@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Logo from '../images/fuse.svg';
 import LoginForm from '../Components/Forms/LoginForm';
 import SignUpForm from '../Components/Forms/SignUpForm';
 import * as actions from '../Actions/auth';
@@ -49,10 +51,11 @@ class HomePage extends Component {
 
     render() {
       return (
-        <div className="grid-x">
-          <div className="cell medium-4 promo-intro">
-            <div className="grid-container">
-              <div className="promo-content grid-container">
+        <div className="promo-intro">
+          <Grid container spacing={15}>
+            <Grid item xs={9}>
+              <div className="promo-content">
+                <img src={Logo} alt="" className="logo" />
                 <div className="promo-header">
                   <h1>All in one e-commerce management solution</h1>
                 </div>
@@ -67,67 +70,54 @@ class HomePage extends Component {
                   Explore More
                 </Link>
               </div>
-            </div>
-          </div>
-          <div className="cell medium-7 medium-offset-1 login-form">
-            <div className="grid-container">
-              <div className="login-sign-up-form">
-                <div className="grid-x grid-padding-x ml-5">
-                  <div className="medium-6 cell mb-3">
-                    {this.state.activeTab ? (
-                      <form onSubmit={this.handleLogin.bind(this)}>
-                        <LoginForm
-                          handleInputChange={this.handleInputChange.bind(
-                            this,
-                          )}
-                          email={this.state.email}
-                          password={this.state.password}
-                        />
-                      </form>
-                    ) : (
-                      <form onSubmit={this.handleRegister.bind(this)}>
-                        <SignUpForm
-                          handleInputChange={this.handleInputChange.bind(
-                            this,
-                          )}
-                          email={this.state.email}
-                          password={this.state.password}
-                          passwordConf={this.state.passwordConf}
-                        />
-                      </form>
-                    )}
+            </Grid>
 
-                    <div className="grid-x align-center">
-                      {this.state.activeTab ? (
-                        <button
-                          onClick={this.showSignUpForm.bind(this)}
-                          type="button"
-                          className="clear button"
-                        >
-                            Sign Up
-                        </button>
-                      ) : (
-                        <button
-                          onClick={this.showLoginForm.bind(this)}
-                          type="button"
-                          className="clear button"
-                        >
-                            Sign In
-                        </button>
-                      )}
-                      <button
-                        onClick={this.showLoginForm.bind(this)}
-                        type="button"
-                        className="clear button"
-                      >
-                          Forgot Password
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <Grid item xs={3} className="login-sign-up">
+              {this.state.activeTab ? (
+                <form onSubmit={this.handleLogin.bind(this)}>
+                  <LoginForm
+                    handleInputChange={this.handleInputChange.bind(this)}
+                    email={this.state.email}
+                    password={this.state.password}
+                  />
+                </form>
+              ) : (
+                <form onSubmit={this.handleRegister.bind(this)}>
+                  <SignUpForm
+                    handleInputChange={this.handleInputChange.bind(this)}
+                    email={this.state.email}
+                    password={this.state.password}
+                    passwordConf={this.state.passwordConf}
+                  />
+                </form>
+              )}
+
+              {this.state.activeTab ? (
+                <button
+                  onClick={this.showSignUpForm.bind(this)}
+                  type="button"
+                  className="clear button"
+                >
+                  Sign Up
+                </button>
+              ) : (
+                <button
+                  onClick={this.showLoginForm.bind(this)}
+                  type="button"
+                  className="clear button"
+                >
+                  Sign In
+                </button>
+              )}
+              <button
+                onClick={this.showLoginForm.bind(this)}
+                type="button"
+                className="clear button"
+              >
+                Forgot Password
+              </button>
+            </Grid>
+          </Grid>
         </div>
       );
     }
