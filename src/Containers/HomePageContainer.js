@@ -81,7 +81,7 @@ class HomePage extends Component {
 
             <Grid item md={3} xs={12} className="login-sign-up">
               {this.state.activeTab ? (
-                <Slide direction="left" in mountOnEnter unmountOnExit timeout={1300}>
+                <Slide direction="left" in mountOnEnter unmountOnExit timeout={800}>
                   <LoginForm
                     onSubmit={this.handleLogin.bind(this)}
                     handleInputChange={this.handleInputChange.bind(this)}
@@ -93,7 +93,7 @@ class HomePage extends Component {
               ) : null}
               {!this.state.activeTab ? (
                 (
-                  <Slide direction="left" in mountOnEnter unmountOnExit timeout={1300}>
+                  <Slide direction="left" in mountOnEnter unmountOnExit timeout={800}>
                     <SignUpForm
                       onSubmit={this.handleRegister.bind(this)}
                       handleInputChange={this.handleInputChange.bind(this)}
