@@ -5,7 +5,7 @@ import configureStore from './store';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './scss/styles.scss';
-
+import 'typeface-roboto';
 ReactDOM.render(
   <Provider store={configureStore()}>
     <App />
