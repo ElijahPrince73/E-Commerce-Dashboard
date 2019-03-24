@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -13,29 +14,41 @@ class SideNav extends Component {
     return (
       <div className="root">
         <Drawer
+          className="drawer"
           variant="permanent"
           classes={{
             paper: 'draw-paper',
           }}
           anchor="left"
         >
-          <div className="drawer-header">
-            Header Component
-          </div>
+          <div className="drawer-header">Header Component</div>
           <List>
-            {['Products', 'Product Detail', 'Category', 'Orders', 'Order Detail'].map(text => (
-              <div>
-                <Divider />
+            {[
+              'Products',
+              'Product Detail',
+              'Category',
+              'Orders',
+              'Order Detail',
+            ].map((text, index) => (
+              <div key={text}>
+                <Divider key={index} />
                 <ListItem button key={text}>
-                  <Link to={`/${text.toLowerCase()}`}>{text}</Link>
+                  <Link to={`/${text.toLowerCase()}`} key={text}>
+                    {text}
+                  </Link>
                 </ListItem>
               </div>
             ))}
           </List>
         </Drawer>
+        <div className="content">{this.props.component}</div>
       </div>
     );
   }
 }
+
+SideNav.propTypes = {
+  component: PropTypes.object.isRequired,
+};
 
 export default SideNav;

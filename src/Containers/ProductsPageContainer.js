@@ -8,7 +8,9 @@ class ProductsPage extends Component {
 
   render() {
     return (
-      <div />
+      <div className="content">
+        Hello
+      </div>
     );
   }
 }

@@ -26,9 +26,10 @@ const AdminLayout = (props) => {
 };
 
 const MainLayout = (props) => {
+  console.log(props.children)
     return (
         <div>
-            {props.children}
+          <Sidebar component={props.children}/>
         </div>
     );
 };
@@ -37,7 +38,6 @@ const Routes = () => (
   <div>
     <BrowserRouter>
       <div>
-        <Sidebar />
         <AppRoute 
             exact 
             path="/" 

@@ -2,7 +2,12 @@ $nav-width: 280px;
 .root {
     display: flex;
 }
-
+.drawer {
+    width: 280px;
+}
 .draw-paper {
     width: $nav-width;
+}
+.content {
+    flex-grow: 1,
 }
