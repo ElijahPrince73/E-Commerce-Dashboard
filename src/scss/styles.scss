@@ -1,3 +1,9 @@
-@import "./colors";
-@import "./helpers";
-@import "./HomePage.scss";
+@import "./utils/colors";
+@import "./utils/helpers";
+
+// Pages
+@import "./pages/ProductsPage";
+@import "./pages/HomePage";
+
+// Components
+@import "./components/Navbar.scss"

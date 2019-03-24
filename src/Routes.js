@@ -3,7 +3,8 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import HomePage from './Pages/Home'
-
+import ProductPage from './Pages/Products'
+import Sidebar from './Components/Sidebar'
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
     <Route
@@ -16,30 +17,14 @@ const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
     />
 );
 
-// const LoginRegisterLayout = (props) => {
-//     return (
-//         <div>
-//             <Helmet>
-//                 {/* <style type="text/css">
-//                     {`
-//             body {
-//                   background: linear-gradient(#0069ff,#1633ff);
-//                   background-repeat: no-repeat;
-//                   background-size: cover;
-//                   background-position: center;
-//                   height: 100vh;
-//             }
-//             nav {
-//               background-color: transparent !important;
-//             }
-//         `}
+const AdminLayout = (props) => {
+    return (
+        <div>
+            {props.children}
+        </div>
+    );
+};
 
-//                 </style> */}
-//             </Helmet>
-//             {props.children}
-//         </div>
-//     );
-// };
 const MainLayout = (props) => {
     return (
         <div>
@@ -52,43 +37,49 @@ const Routes = () => (
   <div>
     <BrowserRouter>
       <div>
-            <AppRoute exact path="/" layout={MainLayout} component={HomePage} />
+        <Sidebar />
+        <AppRoute 
+            exact 
+            path="/" 
+            layout={AdminLayout} 
+            component={HomePage} 
+        />
+        <AppRoute
+            exact
+            path="/products"
+            layout={MainLayout}
+            component={ProductPage}
+        />
         {/* <AppRoute
-                    exact
-                    path="/surveys"
-                    layout={MainLayout}
-                    component={Dashboard}
-                />
-                <AppRoute
-                    exact
-                    path="/create-survey"
-                    layout={MainLayout}
-                    component={SurveyCreate}
-                />
-                <AppRoute
-                    exact
-                    path="/draft"
-                    layout={MainLayout}
-                    component={SurveyDraft}
-                />
-                <AppRoute
-                    exact
-                    path="/draft/:id"
-                    layout={MainLayout}
-                    component={SurveyDraft}
-                />
-                <AppRoute
-                    exact
-                    path="/view-survey/:id"
-                    layout={MainLayout}
-                    component={ViewSurvey}
-                />
-                <AppRoute
-                    exact
-                    path="/thanks"
-                    layout={MainLayout}
-                    component={ThankYou}
-                /> */}
+          exact
+          path="/create-survey"
+          layout={MainLayout}
+          component={SurveyCreate}
+        />
+        <AppRoute
+          exact
+          path="/draft"
+          layout={MainLayout}
+          component={SurveyDraft}
+        />
+        <AppRoute
+          exact
+          path="/draft/:id"
+          layout={MainLayout}
+          component={SurveyDraft}
+        />
+        <AppRoute
+          exact
+          path="/view-survey/:id"
+          layout={MainLayout}
+          component={ViewSurvey}
+        />
+        <AppRoute
+          exact
+          path="/thanks"
+          layout={MainLayout}
+          component={ThankYou}
+        /> */}
       </div>
     </BrowserRouter>
   </div>
