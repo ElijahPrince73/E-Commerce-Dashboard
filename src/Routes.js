@@ -1,10 +1,9 @@
 /* eslint-disable */
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import HomePage from './Pages/Home'
 import ProductPage from './Pages/Products'
-import Sidebar from './Components/Sidebar'
+import Sidebar from './Containers/SidebarContainer'
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
     <Route
@@ -26,7 +25,6 @@ const AdminLayout = (props) => {
 };
 
 const MainLayout = (props) => {
-  console.log(props.children)
     return (
         <div>
           <Sidebar component={props.children}/>
@@ -34,23 +32,24 @@ const MainLayout = (props) => {
     );
 };
 
-const Routes = () => (
-  <div>
-    <BrowserRouter>
-      <div>
-        <AppRoute 
-            exact 
-            path="/" 
-            layout={AdminLayout} 
-            component={HomePage} 
-        />
-        <AppRoute
+const Routes = () => {
+  return (
+    <div>
+      <BrowserRouter>
+        <div>
+          <AppRoute
+            exact
+            path="/"
+            layout={AdminLayout}
+            component={HomePage}
+          />
+          <AppRoute
             exact
             path="/products"
             layout={MainLayout}
             component={ProductPage}
-        />
-        {/* <AppRoute
+          />
+          {/* <AppRoute
           exact
           path="/create-survey"
           layout={MainLayout}
@@ -80,9 +79,10 @@ const Routes = () => (
           layout={MainLayout}
           component={ThankYou}
         /> */}
-      </div>
-    </BrowserRouter>
-  </div>
-);
+        </div>
+      </BrowserRouter>
+    </div>
+  );
+}
 
 export default Routes;

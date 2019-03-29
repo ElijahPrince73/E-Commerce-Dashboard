@@ -1,8 +1,8 @@
-import { LOGIN_USER } from '../Actions/types';
+import { GET_USER } from '../Actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case LOGIN_USER:
+    case GET_USER:
       return {
         user: action.payload,
       };

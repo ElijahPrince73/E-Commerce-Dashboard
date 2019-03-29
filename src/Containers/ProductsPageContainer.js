@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 
 class ProductsPage extends Component {
   componentDidMount() {
@@ -15,4 +15,16 @@ class ProductsPage extends Component {
   }
 }
 
-export default ProductsPage;
+function mapStateToProps(state) {
+  console.log(state);
+  return state.auth;
+}
+
+function mapDispatchToProps() {
+  return {};
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ProductsPage);

@@ -5,10 +5,13 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import * as actions from '../../Actions/auth';
 
 class SideNav extends Component {
-  componentDidCatch() {}
+  componentWillMount() {
+    this.props.getProfile();
+  }
 
   render() {
     return (
@@ -51,4 +54,11 @@ SideNav.propTypes = {
   component: PropTypes.object.isRequired,
 };
 
-export default SideNav;
+function mapStateToProps(state) {
+  return state.auth;
+}
+
+export default connect(
+  mapStateToProps,
+  actions,
+)(SideNav);
