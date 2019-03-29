@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../Actions/auth';
 
+
 class SideNav extends Component {
   componentWillMount() {
     this.props.getProfile();
@@ -49,6 +50,10 @@ class SideNav extends Component {
     );
   }
 }
+
+SideNav.propTypes = {
+  getProfile: PropTypes.func.isRequired,
+};
 
 SideNav.propTypes = {
   component: PropTypes.object.isRequired,
