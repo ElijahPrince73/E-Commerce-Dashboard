@@ -1,17 +1,71 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import { Link } from 'react-router-dom';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../Actions/auth';
 
 
 class SideNav extends Component {
+  state = {
+    anchorEl: null,
+  };
+
   componentWillMount() {
     this.props.getProfile();
+  }
+
+  handleClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  handleLogout() {
+
+  }
+
+  renderUser() {
+    const { user } = this.props;
+    const { anchorEl } = this.state;
+    if (user) {
+      return (
+        <div className="text-center">
+          {/* <Button
+            aria-owns={anchorEl ? 'simple-menu' : undefined}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+          >
+            Open Menu
+          </Button> */}
+          <p>Name of User</p>
+          <span
+            className="user-email"
+            aria-owns={anchorEl ? 'simple-menu' : undefined}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+          >
+            {user.email}
+          </span>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+            className="menu"
+          >
+            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+            <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+          </Menu>
+        </div>
+      );
+    }
   }
 
   render() {
@@ -25,7 +79,8 @@ class SideNav extends Component {
           }}
           anchor="left"
         >
-          <div className="drawer-header">Header Component</div>
+          <div className="drawer-header">{this.renderUser()}</div>
+
           <List>
             {[
               'Products',
@@ -33,19 +88,25 @@ class SideNav extends Component {
               'Category',
               'Orders',
               'Order Detail',
-            ].map((text, index) => (
+            ].map(text => (
               <div key={text}>
-                <Divider key={index} />
-                <ListItem button key={text}>
-                  <Link to={`/${text.toLowerCase()}`} key={text}>
-                    {text}
-                  </Link>
-                </ListItem>
+                <NavLink
+                  to={`/${text.replace(/\s+/g, '-').toLowerCase()}`}
+                  activeClassName="selected"
+                  className="nav-item-link"
+                >
+                  <span className="nav-item-text">{text}</span>
+                </NavLink>
               </div>
             ))}
           </List>
         </Drawer>
-        <div className="content">{this.props.component}</div>
+
+        <Grid container spacing={12} className="px-6">
+          <Grid item xs={12}>
+            {this.props.component}
+          </Grid>
+        </Grid>
       </div>
     );
   }
@@ -57,6 +118,7 @@ SideNav.propTypes = {
 
 SideNav.propTypes = {
   component: PropTypes.object.isRequired,
+  user: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {

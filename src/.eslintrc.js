@@ -17,6 +17,7 @@ module.exports = {
     "jsx-a11y/anchor-is-valid": "off",
     "import/prefer-default-export": "off",
     "react/forbid-prop-types": "off",
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "consistent-return": "off"
   }
 };

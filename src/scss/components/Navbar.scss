@@ -6,8 +6,51 @@ $nav-width: 280px;
     width: 280px;
 }
 .draw-paper {
+    background-color: #303030 !important;
     width: $nav-width;
 }
 .content {
     flex-grow: 1,
+}
+.drawer-header {
+    padding: 18%;
+    color: rgb(255, 255, 255);
+    background-color: rgb(59, 65, 80);
+}
+.user-email {
+    font-size: 13px;
+    font-weight: 400;
+    color: #A3A6AD;
+}
+.user-email:hover {
+    cursor: pointer;
+}
+
+.menu {
+    top: 5% !important;
+    left: 2% !important;
+}
+
+.nav-item-link{
+    color: white;
+    padding-top: 20px;
+    display: block;
+}
+
+.nav-item-text{
+    color: white;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.selected {
+    background-color: rgb(3, 135, 199);
+    color: white !important;
+    transition: border-radius .15s cubic-bezier(0.4,0.0,0.2,1);
+    pointer-events: none;
+    width: calc(100% - 16px);
+    height: 30px;
+    border-radius: 0 20px 20px 0;
+    padding-right: 12px;
+    text-decoration: none!important;
 }
