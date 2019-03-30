@@ -31,9 +31,13 @@ $nav-width: 280px;
     left: 2% !important;
 }
 
+.nav-item {
+    padding-bottom: 20px;
+}
+
 .nav-item-link{
     color: white;
-    padding-top: 20px;
+    padding-top: 10px;
     display: block;
 }
 

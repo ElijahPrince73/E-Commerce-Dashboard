@@ -89,7 +89,7 @@ class SideNav extends Component {
               'Orders',
               'Order Detail',
             ].map(text => (
-              <div key={text}>
+              <div key={text} className="nav-item">
                 <NavLink
                   to={`/${text.replace(/\s+/g, '-').toLowerCase()}`}
                   activeClassName="selected"
