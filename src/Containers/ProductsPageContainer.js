@@ -20,6 +20,7 @@ class ProductsPage extends Component {
         sku: '123',
         image:
           'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+        productId: '123',
       },
       {
         productName: 'quarter',
@@ -34,6 +35,12 @@ class ProductsPage extends Component {
     ],
     search: '',
   };
+
+  redirectToProductDetail(info) {
+    const { productId } = info.original;
+    // Send user to product detail page
+    console.log(productId);
+  }
 
   render() {
     const columns = [
@@ -145,6 +152,9 @@ class ProductsPage extends Component {
           data={data}
           columns={columns}
           defaultPageSize={10}
+          getTrProps={(state, rowInfo) => ({
+            onClick: () => this.redirectToProductDetail(rowInfo),
+          })}
         />
       </div>
     );

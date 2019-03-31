@@ -88,6 +88,12 @@ const Routes = () => {
             layout={MainLayout}
             component={ProductPage}
           />
+          <AppRoute
+            exact
+            path="/new-product"
+            layout={MainLayout}
+            component={ProductPage}
+          />
         </div>
       </BrowserRouter>
     </div>

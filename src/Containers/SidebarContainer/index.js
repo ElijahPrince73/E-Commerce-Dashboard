@@ -79,6 +79,7 @@ class SideNav extends Component {
               'Products',
               'Categories',
               'Orders',
+              'New Product',
             ].map(text => (
               <div key={text} className="nav-item">
                 <NavLink
