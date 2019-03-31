@@ -1,316 +1,154 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Grid from '@material-ui/core/Grid';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import SearchIcon from '@material-ui/icons/Search';
+import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 
 class ProductsPage extends Component {
   state = {
-    data: makeData(),
+    data: [
+      {
+        productName: 'judge judy is judge that can do amazing thjing',
+        category: 'babies',
+        price: '16',
+        sku: '123',
+        image:
+          'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+      },
+      {
+        productName: 'quarter',
+        category: 'driving',
+        price: '17',
+      },
+      {
+        productName: 'division',
+        category: 'society',
+        price: '3',
+      },
+    ],
     search: '',
   };
 
   render() {
     const columns = [
       {
-        columns: [
-          {
-            Header: 'First Name',
-            accessor: 'firstName',
-          },
-          {
-            Header: 'Last Name',
-            id: 'lastName',
-            accessor: d => d.lastName,
-          },
-        ],
+        Header: '',
+        minWidth: 30,
+        accessor: 'image',
+        sortable: false,
+        Cell: row => (
+          <div className="cell-image-container">
+            {row.original.image ? (
+              <img src={row.original.image} alt="" className="cell-image" />
+            ) : (
+              <div className="no-image" />
+            )}
+          </div>
+        ),
       },
       {
-        columns: [
-          {
-            Header: 'Age',
-            accessor: 'age',
-          },
-        ],
+        Header: 'Product Name',
+        accessor: 'productName',
+
+        Cell: row => (
+          <div className="cell-flex">
+            <p className="pl-2">
+              {row.original.productName.length < 35
+                ? row.original.productName
+                : `${row.original.productName.substring(0, 35)}...`}
+            </p>
+          </div>
+        ),
+      },
+      {
+        Header: 'Category',
+        accessor: 'category',
+        Cell: row => (
+          <div className="cell-flex">
+            <p className="pl-1">{row.original.category}</p>
+          </div>
+        ),
+      },
+      {
+        Header: 'Price',
+        accessor: 'price',
+        Cell: row => (
+          <div className="cell-flex">
+            <p>{row.original.price}</p>
+          </div>
+        ),
+      },
+      {
+        Header: 'Sku',
+        accessor: 'sku',
+        Cell: row => (
+          <div className="cell-flex">
+            <p>{row.original.sku}</p>
+          </div>
+        ),
       },
     ];
 
-
     let data = this.state.data;
 
-    data = data.filter(row => row.firstName.includes(this.state.search)
-      || row.lastName.includes(this.state.search)
-      || String(row.age).includes(this.state.search));
+    data = data.filter(
+      row =>
+        row.productName.includes(this.state.search)
+        || row.category.includes(this.state.search)
+        || String(row.age).includes(this.state.search),
+    );
 
     return (
       <div>
-        <h1>React-Table - Basic Example</h1>
-        Search:
-        <input
-          value={this.state.search}
-          onChange={e => this.setState({ search: e.target.value })}
-        />
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+          spacing={24}
+          className="my-4"
+        >
+          <div className="products-background" />
+          <Grid container item xs={3} className="products-title">
+            <Grid item xs={1}>
+              <ShoppingBasket />
+            </Grid>
+            <Grid item xs={3}>
+              <h2 className="m-0">Products</h2>
+            </Grid>
+          </Grid>
+          <Grid item xs={4} className="search-field">
+            <Paper className="flex">
+              <IconButton aria-label="Search">
+                <SearchIcon />
+              </IconButton>
+              <InputBase
+                placeholder="Search"
+                className="flex search-input"
+                value={this.state.search}
+                onChange={e => this.setState({ search: e.target.value })}
+              />
+            </Paper>
+          </Grid>
+          <Grid item xs={3} className="text-right">
+            <Button variant="contained">ADD NEW PRODUCT</Button>
+          </Grid>
+        </Grid>
+
         <ReactTable
           data={data}
           columns={columns}
+          defaultPageSize={10}
         />
       </div>
     );
   }
-}
-
-function makeData() {
-  return [
-    {
-      firstName: 'judge',
-      lastName: 'babies',
-      age: 16,
-    },
-    {
-      firstName: 'quarter',
-      lastName: 'driving',
-      age: 17,
-    },
-    {
-      firstName: 'division',
-      lastName: 'society',
-      age: 3,
-    },
-    {
-      firstName: 'lamp',
-      lastName: 'point',
-      age: 2,
-    },
-    {
-      firstName: 'argument',
-      lastName: 'insurance',
-      age: 13,
-    },
-    {
-      firstName: 'pets',
-      lastName: 'fan',
-      age: 27,
-    },
-    {
-      firstName: 'learning',
-      lastName: 'board',
-      age: 9,
-    },
-    {
-      firstName: 'observation',
-      lastName: 'drink',
-      age: 28,
-    },
-    {
-      firstName: 'burst',
-      lastName: 'glove',
-      age: 1,
-    },
-    {
-      firstName: 'acoustics',
-      lastName: 'animal',
-      age: 19,
-    },
-    {
-      firstName: 'beetle',
-      lastName: 'branch',
-      age: 25,
-    },
-    {
-      firstName: 'invention',
-      lastName: 'servant',
-      age: 14,
-    },
-    {
-      firstName: 'letters',
-      lastName: 'driving',
-      age: 12,
-    },
-    {
-      firstName: 'seashore',
-      lastName: 'metal',
-      age: 18,
-    },
-    {
-      firstName: 'cat',
-      lastName: 'stranger',
-      age: 26,
-    },
-    {
-      firstName: 'group',
-      lastName: 'dinner',
-      age: 20,
-    },
-    {
-      firstName: 'mom',
-      lastName: 'pipe',
-      age: 27,
-    },
-    {
-      firstName: 'desk',
-      lastName: 'pail',
-      age: 6,
-    },
-    {
-      firstName: 'oranges',
-      lastName: 'interest',
-      age: 22,
-    },
-    {
-      firstName: 'umbrella',
-      lastName: 'legs',
-      age: 9,
-    },
-    {
-      firstName: 'carpenter',
-      lastName: 'apparel',
-      age: 19,
-    },
-    {
-      firstName: 'seat',
-      lastName: 'wrench',
-      age: 14,
-    },
-    {
-      firstName: 'carpenter',
-      lastName: 'steam',
-      age: 27,
-    },
-    {
-      firstName: 'chess',
-      lastName: 'bread',
-      age: 21,
-    },
-    {
-      firstName: 'men',
-      lastName: 'pie',
-      age: 5,
-    },
-    {
-      firstName: 'group',
-      lastName: 'action',
-      age: 21,
-    },
-    {
-      firstName: 'coil',
-      lastName: 'mine',
-      age: 11,
-    },
-    {
-      firstName: 'care',
-      lastName: 'partner',
-      age: 17,
-    },
-    {
-      firstName: 'queen',
-      lastName: 'cows',
-      age: 20,
-    },
-    {
-      firstName: 'wilderness',
-      lastName: 'cracker',
-      age: 24,
-    },
-    {
-      firstName: 'chair',
-      lastName: 'scarecrow',
-      age: 5,
-    },
-    {
-      firstName: 'cast',
-      lastName: 'nation',
-      age: 16,
-    },
-    {
-      firstName: 'fear',
-      lastName: 'wave',
-      age: 28,
-    },
-    {
-      firstName: 'cook',
-      lastName: 'drug',
-      age: 2,
-    },
-    {
-      firstName: 'thrill',
-      lastName: 'marble',
-      age: 25,
-    },
-    {
-      firstName: 'ship',
-      lastName: 'muscle',
-      age: 29,
-    },
-    {
-      firstName: 'drug',
-      lastName: 'suit',
-      age: 13,
-    },
-    {
-      firstName: 'edge',
-      lastName: 'statement',
-      age: 19,
-    },
-    {
-      firstName: 'chickens',
-      lastName: 'start',
-      age: 20,
-    },
-    {
-      firstName: 'donkey',
-      lastName: 'laugh',
-      age: 14,
-    },
-    {
-      firstName: 'tiger',
-      lastName: 'tendency',
-      age: 27,
-    },
-    {
-      firstName: 'steam',
-      lastName: 'argument',
-      age: 17,
-    },
-    {
-      firstName: 'riddle',
-      lastName: 'adjustment',
-      age: 15,
-    },
-    {
-      firstName: 'silver',
-      lastName: 'women',
-      age: 2,
-    },
-    {
-      firstName: 'month',
-      lastName: 'babies',
-      age: 13,
-    },
-    {
-      firstName: 'van',
-      lastName: 'flowers',
-      age: 29,
-    },
-    {
-      firstName: 'yak',
-      lastName: 'book',
-      age: 5,
-    },
-    {
-      firstName: 'quicksand',
-      lastName: 'fall',
-      age: 11,
-    },
-    {
-      firstName: 'beggar',
-      lastName: 'dinner',
-      age: 4,
-    },
-    {
-      firstName: 'money',
-      lastName: 'mind',
-      age: 0,
-    },
-  ];
 }
 
 function mapStateToProps(state) {
