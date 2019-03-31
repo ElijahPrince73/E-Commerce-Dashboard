@@ -1,6 +1,10 @@
 import { GET_USER } from '../Actions/types';
 
-export default (state = {}, action) => {
+const defaultState = {
+  user: {},
+};
+
+export default (state = defaultState, action) => {
   switch (action.type) {
     case GET_USER:
       return {

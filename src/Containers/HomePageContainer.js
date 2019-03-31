@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Slide from '@material-ui/core/Slide';
-// import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,6 +9,7 @@ import Logo from '../images/fuse.svg';
 import LoginForm from '../Components/Forms/LoginForm';
 import SignUpForm from '../Components/Forms/SignUpForm';
 import * as actions from '../Actions/auth';
+
 
 class HomePage extends Component {
     state = {
@@ -115,6 +115,7 @@ class HomePage extends Component {
 HomePage.propTypes = {
   registerUser: PropTypes.func.isRequired,
   loginUser: PropTypes.func.isRequired,
+  getProfile: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

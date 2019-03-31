@@ -37,13 +37,6 @@ class SideNav extends Component {
     if (user) {
       return (
         <div className="text-center">
-          {/* <Button
-            aria-owns={anchorEl ? 'simple-menu' : undefined}
-            aria-haspopup="true"
-            onClick={this.handleClick}
-          >
-            Open Menu
-          </Button> */}
           <p>Name of User</p>
           <span
             className="user-email"
@@ -84,10 +77,8 @@ class SideNav extends Component {
           <List>
             {[
               'Products',
-              'Product Detail',
-              'Category',
+              'Categories',
               'Orders',
-              'Order Detail',
             ].map(text => (
               <div key={text} className="nav-item">
                 <NavLink
@@ -102,7 +93,7 @@ class SideNav extends Component {
           </List>
         </Drawer>
 
-        <Grid container spacing={12} className="px-6">
+        <Grid container className="px-6">
           <Grid item xs={12}>
             {this.props.component}
           </Grid>
@@ -113,12 +104,9 @@ class SideNav extends Component {
 }
 
 SideNav.propTypes = {
-  getProfile: PropTypes.func.isRequired,
-};
-
-SideNav.propTypes = {
   component: PropTypes.object.isRequired,
-  user: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+  getProfile: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

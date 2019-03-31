@@ -17,6 +17,11 @@ const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
 );
 
 const AdminLayout = (props) => {
+  const localToken = localStorage.getItem('token');
+  if (localToken) {
+    window.location.href = '/products';
+  }
+
     return (
         <div>
             {props.children}
@@ -25,6 +30,10 @@ const AdminLayout = (props) => {
 };
 
 const MainLayout = (props) => {
+  const localToken = localStorage.getItem("token");
+  if (!localToken) {
+    window.location.href = "/products";
+  }
     return (
         <div>
           <Sidebar component={props.children}/>
@@ -32,7 +41,7 @@ const MainLayout = (props) => {
     );
 };
 
-const Routes = () => {
+const Routes = () => {  
   return (
     <div>
       <BrowserRouter>
@@ -49,36 +58,36 @@ const Routes = () => {
             layout={MainLayout}
             component={ProductPage}
           />
-          {/* <AppRoute
-          exact
-          path="/create-survey"
-          layout={MainLayout}
-          component={SurveyCreate}
-        />
-        <AppRoute
-          exact
-          path="/draft"
-          layout={MainLayout}
-          component={SurveyDraft}
-        />
-        <AppRoute
-          exact
-          path="/draft/:id"
-          layout={MainLayout}
-          component={SurveyDraft}
-        />
-        <AppRoute
-          exact
-          path="/view-survey/:id"
-          layout={MainLayout}
-          component={ViewSurvey}
-        />
-        <AppRoute
-          exact
-          path="/thanks"
-          layout={MainLayout}
-          component={ThankYou}
-        /> */}
+          <AppRoute
+            exact
+            path="/products/:id"
+            layout={MainLayout}
+            component={ProductPage}
+          />
+          <AppRoute
+            exact
+            path="/categories"
+            layout={MainLayout}
+            component={ProductPage}
+          />
+          <AppRoute
+            exact
+            path="/categories/:id"
+            layout={MainLayout}
+            component={ProductPage}
+          />
+          <AppRoute
+            exact
+            path="/orders"
+            layout={MainLayout}
+            component={ProductPage}
+          />
+          <AppRoute
+            exact
+            path="/orders/:id"
+            layout={MainLayout}
+            component={ProductPage}
+          />
         </div>
       </BrowserRouter>
     </div>
