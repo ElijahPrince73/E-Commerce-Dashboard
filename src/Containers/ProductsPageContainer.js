@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
@@ -9,38 +10,23 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
+import * as actions from '../Actions/products';
 
 class ProductsPage extends Component {
   state = {
-    data: [
-      {
-        productName: 'judge judy is judge that can do amazing thjing',
-        category: 'babies',
-        price: '16',
-        sku: '123',
-        image:
-          'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-        productId: '123',
-      },
-      {
-        productName: 'quarter',
-        category: 'driving',
-        price: '17',
-      },
-      {
-        productName: 'division',
-        category: 'society',
-        price: '3',
-      },
-    ],
     search: '',
   };
+
+  componentWillMount() {
+    this.props.getProducts();
+  }
 
   redirectToProductDetail(info) {
     const { productId } = info.original;
     // Send user to product detail page
     console.log(productId);
   }
+
 
   render() {
     const columns = [
@@ -49,15 +35,22 @@ class ProductsPage extends Component {
         minWidth: 30,
         accessor: 'image',
         sortable: false,
-        Cell: row => (
-          <div className="cell-image-container">
-            {row.original.image ? (
-              <img src={row.original.image} alt="" className="cell-image" />
-            ) : (
-              <div className="no-image" />
-            )}
-          </div>
-        ),
+        Cell: (row) => {
+          console.log(row);
+          return (
+            <div className="cell-image-container">
+              {row.original.images[0] ? (
+                <img
+                  src={row.original.images[0].url}
+                  alt=""
+                  className="cell-image"
+                />
+              ) : (
+                <div className="no-image" />
+              )}
+            </div>
+          );
+        },
       },
       {
         Header: 'Product Name',
@@ -74,11 +67,11 @@ class ProductsPage extends Component {
         ),
       },
       {
-        Header: 'Category',
-        accessor: 'category',
+        Header: 'Categories',
+        accessor: 'categories',
         Cell: row => (
           <div className="cell-flex">
-            <p className="pl-1">{row.original.category}</p>
+            <p className="pl-1">{row.original.categories.toString()}</p>
           </div>
         ),
       },
@@ -102,15 +95,18 @@ class ProductsPage extends Component {
       },
     ];
 
-    let data = this.state.data;
+    let data = this.props.products;
 
-    data = data.filter(
-      row =>
-        row.productName.includes(this.state.search)
+    if (data) {
+      data = data.filter(
+        row =>
+          row.productName.includes(this.state.search)
         || row.category.includes(this.state.search)
         || String(row.age).includes(this.state.search),
-    );
+      );
+    }
 
+    console.log(data);
     return (
       <div>
         <Grid
@@ -161,15 +157,16 @@ class ProductsPage extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return state.auth;
-}
+ProductsPage.propTypes = {
+  getProducts: PropTypes.func.isRequired,
+  products: PropTypes.object.isRequired,
+};
 
-function mapDispatchToProps() {
-  return {};
+function mapStateToProps(state) {
+  return state.productsList;
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  actions,
 )(ProductsPage);

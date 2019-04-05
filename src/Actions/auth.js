@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_USER } from './types';
+import { GET_USER, ERROR } from './types';
 
 const localToken = localStorage.getItem('token');
 
@@ -13,8 +13,8 @@ export const loginUser = values => (dispatch) => {
       setToken(res.data);
       window.location.href = '/products';
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
+      dispatch({ type: ERROR, payload: 'error' });
     });
 };
 
@@ -26,8 +26,8 @@ export const registerUser = values => (dispatch) => {
       setToken(res.data);
       window.location.href = '/products';
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
+      dispatch({ type: ERROR, payload: 'error' });
     });
 };
 
@@ -43,7 +43,7 @@ export const logoutUser = () => {
 };
 
 
-export const getProfile = values => (dispatch) => {
+export const getProfile = () => (dispatch) => {
   axios
     .get('http://localhost:5000/api/me', {
       headers: { 'x-auth': localToken },
@@ -51,7 +51,7 @@ export const getProfile = values => (dispatch) => {
     .then((res) => {
       dispatch({ type: GET_USER, payload: res.data });
     })
-    .catch((err) => {
+    .catch(() => {
       window.location.href = '/';
     });
 };

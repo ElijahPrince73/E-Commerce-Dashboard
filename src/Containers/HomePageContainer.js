@@ -115,7 +115,6 @@ class HomePage extends Component {
 HomePage.propTypes = {
   registerUser: PropTypes.func.isRequired,
   loginUser: PropTypes.func.isRequired,
-  getProfile: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

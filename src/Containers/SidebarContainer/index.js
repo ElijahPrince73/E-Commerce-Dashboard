@@ -34,6 +34,7 @@ class SideNav extends Component {
   renderUser() {
     const { user } = this.props;
     const { anchorEl } = this.state;
+
     if (user) {
       return (
         <div className="text-center">
