@@ -9,7 +9,8 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import Checkbox from '@material-ui/core/Checkbox';
 import * as actions from '../Actions/products';
 
 class ProductsPage extends Component {
@@ -31,26 +32,28 @@ class ProductsPage extends Component {
   render() {
     const columns = [
       {
+        Header: () => <Checkbox color="primary" />,
+        minWidth: 18,
+        sortable: false,
+      },
+      {
         Header: '',
         minWidth: 30,
         accessor: 'image',
         sortable: false,
-        Cell: (row) => {
-          console.log(row);
-          return (
-            <div className="cell-image-container">
-              {row.original.images[0] ? (
-                <img
-                  src={row.original.images[0].url}
-                  alt=""
-                  className="cell-image"
-                />
-              ) : (
-                <div className="no-image" />
-              )}
-            </div>
-          );
-        },
+        Cell: row => (
+          <div className="cell-image-container">
+            {row.original.images[0] ? (
+              <img
+                src={row.original.images[0].url}
+                alt=""
+                className="cell-image"
+              />
+            ) : (
+              <div className="no-image" />
+            )}
+          </div>
+        ),
       },
       {
         Header: 'Product Name',
@@ -120,7 +123,7 @@ class ProductsPage extends Component {
           <div className="products-background" />
           <Grid container item xs={3} className="products-title">
             <Grid item xs={1}>
-              <ShoppingBasket />
+              <ShoppingBasketIcon />
             </Grid>
             <Grid item xs={3}>
               <h2 className="m-0">Products</h2>
