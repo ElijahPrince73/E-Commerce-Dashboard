@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-weight: 300 !important;
   color: $black;
+  background: #FAFAFA;
 }
 
 h1,h2 {
@@ -1855,4 +1856,11 @@ a:hover {
 
 .px-6{
   padding: 0 3.2rem;
+}
+.back-link {
+  color: white;
+}
+
+.back-link:hover {
+  text-decoration: none;
 }

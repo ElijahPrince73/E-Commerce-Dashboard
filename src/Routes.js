@@ -3,10 +3,12 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import HomePage from './Pages/Home'
 import ProductPage from './Pages/Products'
+import NewProductPage from './Pages/NewProduct'
 import Sidebar from './Containers/SidebarContainer'
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
     <Route
+        
         {...rest}
         render={props => (
             <Layout>
@@ -60,40 +62,35 @@ const Routes = () => {
           />
           <AppRoute
             exact
+            path="/products/new"
+            layout={MainLayout}
+            component={NewProductPage}
+          />
+          {/* <AppRoute
             path="/products/:id"
             layout={MainLayout}
             component={ProductPage}
           />
           <AppRoute
-            exact
             path="/categories"
             layout={MainLayout}
             component={ProductPage}
           />
           <AppRoute
-            exact
             path="/categories/:id"
             layout={MainLayout}
             component={ProductPage}
           />
           <AppRoute
-            exact
             path="/orders"
             layout={MainLayout}
             component={ProductPage}
           />
           <AppRoute
-            exact
             path="/orders/:id"
             layout={MainLayout}
             component={ProductPage}
-          />
-          <AppRoute
-            exact
-            path="/new-product"
-            layout={MainLayout}
-            component={ProductPage}
-          />
+          /> */}
         </div>
       </BrowserRouter>
     </div>
