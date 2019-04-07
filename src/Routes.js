@@ -5,6 +5,7 @@ import HomePage from './Pages/Home'
 import ProductPage from './Pages/Products'
 import NewProductPage from './Pages/NewProduct'
 import Sidebar from './Containers/SidebarContainer'
+import axios from 'axios'
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
     <Route
@@ -19,10 +20,12 @@ const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
 );
 
 const AdminLayout = (props) => {
-  const localToken = localStorage.getItem('token');
-  if (localToken) {
-    window.location.href = '/products';
-  }
+  axios.get("http://localhost:5000/api/me", {
+    headers: { "x-auth": localStorage.getItem('token') }
+  })
+  .then((res) => {
+    window.location.href = '/products'
+  })
 
     return (
         <div>
@@ -32,10 +35,6 @@ const AdminLayout = (props) => {
 };
 
 const MainLayout = (props) => {
-  const localToken = localStorage.getItem("token");
-  if (!localToken) {
-    window.location.href = "/products";
-  }
     return (
         <div>
           <Sidebar component={props.children}/>
