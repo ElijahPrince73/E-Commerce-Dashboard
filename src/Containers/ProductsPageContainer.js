@@ -25,6 +25,9 @@ class ProductsPage extends Component {
     anchorEl: null,
     selectAll: false,
     remove: false,
+    data: [],
+    productsToBeDeleted: [],
+    pageSize: 10,
   };
 
   componentWillMount() {
@@ -32,78 +35,80 @@ class ProductsPage extends Component {
   }
 
   componentDidMount() {
-    const data2 = [
-      { one: 'hi0', two: 'two0', three: 'three0' },
-      { one: 'hi1', two: 'two1', three: 'three1' },
-      { one: 'hi2', two: 'two2', three: 'three2' },
-      { one: 'hi3', two: 'two3', three: 'three3' },
-      { one: 'hi4', two: 'two4', three: 'three4' },
-      { one: 'hi5', two: 'two5', three: 'three5' },
-      { one: 'hi6', two: 'two6', three: 'three6' },
-      { one: 'hi7', two: 'two7', three: 'three7' },
-      { one: 'hi8', two: 'two8', three: 'three8' },
-    ];
+    const data = [{ one: 'hi0', two: 'two0', three: 'three0' }];
 
     const checkedCopy = [];
 
     const selectAll = this.state.selectAll;
 
-    data2.forEach(() => {
+    data.forEach(() => {
       checkedCopy.push(selectAll);
     });
 
     this.setState({
-      data: data2,
+      data,
       checked: checkedCopy,
       selectAll,
     });
   }
 
-  redirectToProductDetail(info) {
-    const { productId } = info.original;
-    // Send user to product detail page
-    console.log(productId);
-  }
+  // redirectToProductDetail(info) {
+  //   const { productId } = info.original;
+  //   // Send user to product detail page
+  //   console.log(productId);
+  // }
 
-  handleClick = (event) => {
+  openRemoveToolTip = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = () => {
+  deleteProducts() {
+    const { productsToBeDeleted } = this.state;
+    this.props.deleteProducts(productsToBeDeleted);
     this.setState({ anchorEl: null });
-  };
+  }
 
-  selectAll = () => {
+  selectAllProducts() {
     const selectAll = !this.state.selectAll;
 
     this.setState({ selectAll });
 
     const checkedCopy = [];
+    // contains all the ids of the products we want to delete
+    const productsToBeDeleted = [];
 
-    this.state.data.forEach(() => {
+    this.props.products.slice(0, this.state.pageSize).forEach((product) => {
       checkedCopy.push(selectAll);
+      productsToBeDeleted.push(product._id);
     });
 
     this.setState({
       checked: checkedCopy,
       remove: selectAll,
+      productsToBeDeleted,
     });
-  };
+  }
 
-  handleSingleCheckboxChange = (index) => {
+  selectOneProduct(row) {
+    const rowIndex = row.index;
     const checkedCopy = this.state.checked;
 
-    checkedCopy[index] = !this.state.checked[index];
+    checkedCopy[rowIndex] = !this.state.checked[rowIndex];
 
-    if (checkedCopy[index] === false) {
+    if (checkedCopy[rowIndex] === false) {
       this.setState({ selectAll: false });
     }
 
     this.setState({
       checked: checkedCopy,
-      remove: checkedCopy[index],
+      remove: checkedCopy[rowIndex],
+      productsToBeDeleted: [row.original._id],
     });
-  };
+  }
+
+  changePageSize(pageSize) {
+    this.setState({ pageSize });
+  }
 
   render() {
     const { anchorEl } = this.state;
@@ -111,10 +116,10 @@ class ProductsPage extends Component {
 
     const columns = [
       {
-        Header: () => (
+        Header: row => (
           <Checkbox
             color="primary"
-            onChange={this.selectAll}
+            onChange={this.selectAllProducts.bind(this, row)}
             checked={this.state.selectAll}
           />
         ),
@@ -122,7 +127,7 @@ class ProductsPage extends Component {
           <Checkbox
             label=""
             checked={this.state.checked[row.index]}
-            onChange={() => this.handleSingleCheckboxChange(row.index)}
+            onChange={this.selectOneProduct.bind(this, row)}
             color="primary"
             className="checkbox-padding"
           />
@@ -133,12 +138,17 @@ class ProductsPage extends Component {
       },
       {
         Header: () => (
-          <div style={{ display: this.state.remove ? 'block' : 'none' }}>
+          <div
+            style={{
+              display: this.state.remove ? 'block' : 'none',
+              marginLeft: '25px',
+            }}
+          >
             <IconButton
               aria-label="More"
               aria-owns={open ? 'long-menu' : undefined}
               aria-haspopup="true"
-              onClick={this.handleClick}
+              onClick={this.openRemoveToolTip}
             >
               <MoreIcon />
             </IconButton>
@@ -146,10 +156,10 @@ class ProductsPage extends Component {
               id="long-menu"
               anchorEl={anchorEl}
               open={open}
-              onClose={this.handleClose}
+              onClose={this.deleteProducts.bind(this)}
               className="remove-pop-up"
             >
-              <MenuItem onClick={this.handleClose}>
+              <MenuItem onClick={this.deleteProducts.bind(this)}>
                 <ListItemIcon className="m-0">
                   <DeleteIcon />
                 </ListItemIcon>
@@ -277,10 +287,8 @@ class ProductsPage extends Component {
         <ReactTable
           data={data}
           columns={columns}
-          defaultPageSize={10}
-          // getTrProps={(state, rowInfo) => ({
-          //   onClick: () => this.redirectToProductDetail(rowInfo),
-          // })}
+          defaultPageSize={this.state.pageSize}
+          onPageSizeChange={pageSize => this.changePageSize(pageSize)}
         />
       </div>
     );
@@ -289,6 +297,7 @@ class ProductsPage extends Component {
 
 ProductsPage.propTypes = {
   getProducts: PropTypes.func.isRequired,
+  deleteProducts: PropTypes.func.isRequired,
   products: PropTypes.array.isRequired,
 };
 

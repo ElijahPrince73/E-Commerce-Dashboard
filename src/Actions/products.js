@@ -15,3 +15,16 @@ export const getProducts = () => (dispatch) => {
       dispatch({ type: ERROR, payload: 'error' });
     });
 };
+
+export const deleteProducts = ids => (dispatch) => {
+  axios
+    .post('http://localhost:5000/api/products-delete', { ids }, {
+      headers: { 'x-auth': localToken },
+    })
+    .then(() => {
+      dispatch(getProducts());
+    })
+    .catch(() => {
+      dispatch({ type: ERROR, payload: 'error' });
+    });
+};

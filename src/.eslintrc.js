@@ -18,6 +18,8 @@ module.exports = {
     "import/prefer-default-export": "off",
     "react/forbid-prop-types": "off",
     "react/no-array-index-key": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "react/no-unused-state": "off",
+    "no-return-assign": "off"
   }
 };

@@ -38,7 +38,7 @@ class SideNav extends Component {
     if (user) {
       return (
         <div className="text-center">
-          <p>Name of User</p>
+          <p>{user.name}</p>
           <span
             className="user-email"
             aria-owns={anchorEl ? 'simple-menu' : undefined}
