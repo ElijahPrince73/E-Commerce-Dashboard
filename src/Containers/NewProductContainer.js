@@ -7,23 +7,43 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import ProductBasicInfo from '../Components/Forms/ProductBasicInfo';
 
 function TabContainer(props) {
-  return (
-    <div className="product-info">
-      {props.children}
-    </div>
-  );
+  return <div className="product-info">{props.children}</div>;
 }
 
 class NewProductContainer extends React.Component {
   state = {
     value: 0,
+    productName: '',
+    productDescription: '',
+    category: [],
+    categories: [
+      'Oliver Hansen',
+      'Van Henry',
+      'April Tucker',
+      'Ralph Hubbard',
+      'Omar Alexander',
+      'Carlos Abbott',
+      'Miriam Wagner',
+      'Bradley Wilkerson',
+      'Virginia Andrews',
+      'Kelly Snyder',
+    ],
   };
 
-  handleChange = (event, value) => {
+  handleChangeInput = (event, value) => {
     this.setState({ value });
   };
+
+  handleChangeSelect(event) {
+    this.setState({ category: event.target.value });
+  }
+
+  handleSubmit() {
+
+  }
 
   render() {
     const { value } = this.state;
@@ -43,10 +63,12 @@ class NewProductContainer extends React.Component {
             <Grid item xs={1}>
               <ArrowBack />
             </Grid>
-            <Grid item xs={3} className="mt-1">
+            <Grid item xs={5} className="mt-1">
               <Link to="/products" className="back-link">
                 <span>Products</span>
               </Link>
+              <h2 className="m-0 mt-3 mb-1">New Product</h2>
+              <span>Product Detail</span>
             </Grid>
           </Grid>
 
@@ -70,9 +92,18 @@ class NewProductContainer extends React.Component {
             </AppBar>
 
             {value === 0 && (
-              <TabContainer>
-                <p>sfhlslhjflsj</p>
-              </TabContainer>
+              <div className="product-info">
+                <ProductBasicInfo
+                  handleChangeSelect={this.handleChangeSelect.bind(this)}
+                  handleInputChange={this.handleChangeInput.bind(this)}
+                  onSubmit={this.handleSubmit}
+                  value={this.state.category}
+                  categories={this.state.categories}
+                  category={this.state.category}
+                  productName={this.state.productName}
+                  productDescription={this.state.productDescription}
+                />
+              </div>
             )}
             {value === 1 && <TabContainer>Item Two</TabContainer>}
             {value === 2 && <TabContainer>Item Three</TabContainer>}

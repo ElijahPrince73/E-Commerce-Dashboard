@@ -1,16 +1,15 @@
 .new-product-container {
     z-index: 1;
-    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
-    margin-top:4.3%;
+    margin-top: 1%;
     width: 100%;
-    background-color: #fff !important;
-    border-radius: 8px 8px 0 0;
+    border-top: 1px solid rgba(0,0,0,0.2);
+    border-left: 1px solid rgba(0,0,0,0.2);
+    border-right: 1px solid rgba(0,0,0,0.2);
 }
 
 .new-product-tab-bar {
     background-color: #fff !important;
-    box-shadow: none !important;
-    border-bottom: 1px solid #E7E7E7;
+    border-radius: 8px 8px 0 0;
 }
 
 .tab-label {
@@ -22,4 +21,16 @@
 
 .product-info {
     background: white;
+    border-top: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0,0,0,0.2)
+}
+
+.select {
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+.dropdown-selected {
+    background-color: $blue !important;
+    color: white !important;
 }
