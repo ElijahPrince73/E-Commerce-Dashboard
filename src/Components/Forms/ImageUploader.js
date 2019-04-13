@@ -10,6 +10,8 @@ const ImageUploaderForm = props => (
     imgExtension={['.jpg', '.gif', '.png', '.gif']}
     maxFileSize={5242880}
     withPreview
+    buttonClassName="upload-image-button"
+    label="Max file size: 5mb, accepted: JPG | GIF | PNG"
   />
 );
 

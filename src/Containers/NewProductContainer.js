@@ -10,6 +10,8 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 // Forms
 import ProductBasicInfo from '../Components/Forms/ProductBasicInfo';
 import ImageUploader from '../Components/Forms/ImageUploader';
+import PricingForm from '../Components/Forms/PricingForm';
+import InventoryForm from '../Components/Forms/Inventory';
 
 function TabContainer(props) {
   return <div className="product-info">{props.children}</div>;
@@ -20,6 +22,12 @@ class NewProductContainer extends React.Component {
     value: 0,
     productName: '',
     productDescription: '',
+    priceTaxExcl: '',
+    priceTaxIncl: '',
+    taxRate: '',
+    price: '',
+    sku: '',
+    quanity: '',
     category: [],
     categories: [
       'Oliver Hansen',
@@ -127,6 +135,26 @@ class NewProductContainer extends React.Component {
             {value === 1 && (
               <div className="product-info">
                 <ImageUploader onDrop={this.handleDrop.bind(this)} />
+              </div>
+            )}
+            {value === 2 && (
+              <div className="product-info">
+                <PricingForm
+                  handleInputChange={this.handleInputChange.bind(this)}
+                  priceTaxExcl={this.state.priceTaxExcl}
+                  priceTaxIncl={this.state.priceTaxIncl}
+                  taxRate={this.statetaxRate}
+                  price={this.state.price}
+                />
+              </div>
+            )}
+            {value === 3 && (
+              <div className="product-info">
+                <InventoryForm
+                  handleInputChange={this.handleInputChange.bind(this)}
+                  sku={this.state.sku}
+                  quanity={this.state.quanity}
+                />
               </div>
             )}
           </div>
