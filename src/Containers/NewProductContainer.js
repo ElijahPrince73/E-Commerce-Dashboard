@@ -143,7 +143,7 @@ class NewProductContainer extends React.Component {
                   handleInputChange={this.handleInputChange.bind(this)}
                   priceTaxExcl={this.state.priceTaxExcl}
                   priceTaxIncl={this.state.priceTaxIncl}
-                  taxRate={this.statetaxRate}
+                  taxRate={this.state.taxRate}
                   price={this.state.price}
                 />
               </div>
