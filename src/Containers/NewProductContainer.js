@@ -7,7 +7,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+// Forms
 import ProductBasicInfo from '../Components/Forms/ProductBasicInfo';
+import ImageUploader from '../Components/Forms/ImageUploader';
 
 function TabContainer(props) {
   return <div className="product-info">{props.children}</div>;
@@ -31,11 +33,22 @@ class NewProductContainer extends React.Component {
       'Virginia Andrews',
       'Kelly Snyder',
     ],
+    pictures: [],
   };
 
-  handleChangeInput = (event, value) => {
+  handleChangeTab = (event, value) => {
     this.setState({ value });
   };
+
+  handleInputChange(e) {
+    const target = e.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
+    });
+  }
 
   handleChangeSelect(event) {
     this.setState({ category: event.target.value });
@@ -43,6 +56,12 @@ class NewProductContainer extends React.Component {
 
   handleSubmit() {
 
+  }
+
+  handleDrop(pictureFiles) {
+    this.setState({
+      pictures: this.state.pictures.concat(pictureFiles),
+    });
   }
 
   render() {
@@ -59,11 +78,11 @@ class NewProductContainer extends React.Component {
           className="my-4"
         >
           <div className="products-background" />
-          <Grid container item xs={3} className="products-title">
+          <Grid container item xs={6} className="products-title">
             <Grid item xs={1}>
               <ArrowBack />
             </Grid>
-            <Grid item xs={5} className="mt-1">
+            <Grid item xs={10} className="mt-1">
               <Link to="/products" className="back-link">
                 <span>Products</span>
               </Link>
@@ -72,14 +91,14 @@ class NewProductContainer extends React.Component {
             </Grid>
           </Grid>
 
-          <Grid item xs={3} className="text-right">
+          <Grid item xs={6} className="text-right">
             <Button variant="contained">SAVE</Button>
           </Grid>
           <div className="new-product-container">
             <AppBar position="static" className="new-product-tab-bar">
               <Tabs
                 value={value}
-                onChange={this.handleChange}
+                onChange={this.handleChangeTab}
                 classes={{ indicator: 'indicator' }}
                 variant="scrollable"
               >
@@ -95,7 +114,7 @@ class NewProductContainer extends React.Component {
               <div className="product-info">
                 <ProductBasicInfo
                   handleChangeSelect={this.handleChangeSelect.bind(this)}
-                  handleInputChange={this.handleChangeInput.bind(this)}
+                  handleInputChange={this.handleInputChange.bind(this)}
                   onSubmit={this.handleSubmit}
                   value={this.state.category}
                   categories={this.state.categories}
@@ -105,10 +124,15 @@ class NewProductContainer extends React.Component {
                 />
               </div>
             )}
-            {value === 1 && <TabContainer>Item Two</TabContainer>}
-            {value === 2 && <TabContainer>Item Three</TabContainer>}
+            {value === 1 && (
+              <div className="product-info">
+                <ImageUploader onDrop={this.handleDrop.bind(this)} />
+              </div>
+            )}
           </div>
         </Grid>
+
+
       </div>
     );
   }

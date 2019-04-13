@@ -14,6 +14,7 @@ import * as actions from '../Actions/auth';
 class HomePage extends Component {
     state = {
       activeTab: true,
+      name: '',
       email: '',
       password: '',
       passwordConf: '',
@@ -50,8 +51,13 @@ class HomePage extends Component {
 
     handleRegister(e) {
       e.preventDefault();
-      const { email, password, passwordConf } = this.state;
-      this.props.registerUser({ email, password, passwordConf });
+      const {
+        name, email, password, passwordConf,
+      } = this.state;
+
+      this.props.registerUser({
+        name, email, password, passwordConf,
+      });
     }
 
     render() {
@@ -97,6 +103,7 @@ class HomePage extends Component {
                     <SignUpForm
                       onSubmit={this.handleRegister.bind(this)}
                       handleInputChange={this.handleInputChange.bind(this)}
+                      name={this.state.name}
                       email={this.state.email}
                       password={this.state.password}
                       passwordConf={this.state.passwordConf}

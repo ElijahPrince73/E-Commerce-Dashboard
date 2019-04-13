@@ -12,6 +12,18 @@ const SignUpForm = props => (
           <h2>CREATE AN ACCOUNT</h2>
         </div>
         <TextField
+          label="Name"
+          type="name"
+          name="name"
+          autoComplete="name"
+          margin="normal"
+          variant="outlined"
+          fullWidth
+          onChange={props.handleInputChange}
+          value={props.name}
+          id="name"
+        />
+        <TextField
           label="Email"
           type="email"
           name="email"
@@ -63,6 +75,7 @@ SignUpForm.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   showLoginForm: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   passwordConf: PropTypes.string.isRequired,
