@@ -1,11 +1,16 @@
-$nav-width: 280px;
+$nav-width: 240px;
 .root {
     display: flex;
 }
 .drawer {
-    width: 280px;
+    width: $nav-width !important;
 }
-.draw-paper {
+
+.close-icon {
+    color: black !important;
+}
+
+.drawer-paper {
     background-color: #303030 !important;
     width: $nav-width;
 }
