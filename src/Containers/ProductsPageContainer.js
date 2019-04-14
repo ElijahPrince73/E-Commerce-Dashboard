@@ -267,11 +267,12 @@ class ProductsPage extends Component {
           <Grid item xs={4} className="search-field">
             <Paper className="flex">
               <IconButton aria-label="Search">
-                <SearchIcon className="p-1" />
+                <SearchIcon className="pl-1" />
               </IconButton>
               <InputBase
+                fullWidth
                 placeholder="Search"
-                className="flex search-input"
+
                 value={this.state.search}
                 onChange={e => this.setState({ search: e.target.value })}
               />
