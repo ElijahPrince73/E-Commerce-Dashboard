@@ -108,7 +108,7 @@ class NewProductContainer extends React.Component {
           <Grid item xs={6} className="text-right">
             <Button variant="contained">SAVE</Button>
           </Grid>
-          <div className="new-product-container">
+          <Grid item xs={12} className="new-product-container">
             <AppBar position="static" className="new-product-tab-bar">
               <Tabs
                 value={value}
@@ -125,57 +125,57 @@ class NewProductContainer extends React.Component {
             </AppBar>
 
             {value === 0 && (
-              <div className="product-info">
-                <ProductBasicInfo
-                  handleChangeSelect={this.handleChangeSelect.bind(this)}
-                  handleInputChange={this.handleInputChange.bind(this)}
-                  onSubmit={this.handleSubmit}
-                  value={this.state.category}
-                  categories={this.state.categories}
-                  category={this.state.category}
-                  productName={this.state.productName}
-                  productDescription={this.state.productDescription}
-                />
-              </div>
+            <div className="product-info">
+              <ProductBasicInfo
+                handleChangeSelect={this.handleChangeSelect.bind(this)}
+                handleInputChange={this.handleInputChange.bind(this)}
+                onSubmit={this.handleSubmit}
+                value={this.state.category}
+                categories={this.state.categories}
+                category={this.state.category}
+                productName={this.state.productName}
+                productDescription={this.state.productDescription}
+              />
+            </div>
             )}
             {value === 1 && (
-              <div className="product-info">
-                <ImageUploader onDrop={this.handleDrop.bind(this)} />
-              </div>
+            <div className="product-info">
+              <ImageUploader onDrop={this.handleDrop.bind(this)} />
+            </div>
             )}
             {value === 2 && (
-              <div className="product-info">
-                <PricingForm
-                  handleInputChange={this.handleInputChange.bind(this)}
-                  priceTaxExcl={this.state.priceTaxExcl}
-                  priceTaxIncl={this.state.priceTaxIncl}
-                  taxRate={this.state.taxRate}
-                  price={this.state.price}
-                />
-              </div>
+            <div className="product-info">
+              <PricingForm
+                handleInputChange={this.handleInputChange.bind(this)}
+                priceTaxExcl={this.state.priceTaxExcl}
+                priceTaxIncl={this.state.priceTaxIncl}
+                taxRate={this.state.taxRate}
+                price={this.state.price}
+              />
+            </div>
             )}
             {value === 3 && (
-              <div className="product-info">
-                <InventoryForm
-                  handleInputChange={this.handleInputChange.bind(this)}
-                  sku={this.state.sku}
-                  quanity={this.state.quanity}
-                />
-              </div>
+            <div className="product-info">
+              <InventoryForm
+                handleInputChange={this.handleInputChange.bind(this)}
+                sku={this.state.sku}
+                quanity={this.state.quanity}
+              />
+            </div>
             )}
             {value === 4 && (
-              <div className="product-info">
-                <ShippingForm
-                  handleInputChange={this.handleInputChange.bind(this)}
-                  width={this.state.width}
-                  height={this.state.height}
-                  depth={this.state.depth}
-                  weight={this.state.weight}
-                  shippingFee={this.state.shippingFee}
-                />
-              </div>
+            <div className="product-info">
+              <ShippingForm
+                handleInputChange={this.handleInputChange.bind(this)}
+                width={this.state.width}
+                height={this.state.height}
+                depth={this.state.depth}
+                weight={this.state.weight}
+                shippingFee={this.state.shippingFee}
+              />
+            </div>
             )}
-          </div>
+          </Grid>
         </Grid>
       </div>
     );

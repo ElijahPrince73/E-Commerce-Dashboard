@@ -17,6 +17,7 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import MoreIcon from '@material-ui/icons/MoreHoriz';
 import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
+import Hidden from '@material-ui/core/Hidden';
 import * as actions from '../Actions/products';
 
 class ProductsPage extends Component {
@@ -249,7 +250,7 @@ class ProductsPage extends Component {
           direction="row"
           justify="space-between"
           alignItems="center"
-          spacing={24}
+          spacing={8}
           className="my-4"
         >
           <div className="products-background" />
@@ -257,9 +258,11 @@ class ProductsPage extends Component {
             <Grid item xs={1}>
               <ShoppingBasketIcon />
             </Grid>
-            <Grid item xs={3}>
-              <h2 className="m-0">Products</h2>
-            </Grid>
+            <Hidden smDown>
+              <Grid item xs={3}>
+                <h2 className="m-0">Products</h2>
+              </Grid>
+            </Hidden>
           </Grid>
           <Grid item xs={4} className="search-field">
             <Paper className="flex">
@@ -284,12 +287,14 @@ class ProductsPage extends Component {
           </Grid>
         </Grid>
 
-        <ReactTable
-          data={data}
-          columns={columns}
-          defaultPageSize={this.state.pageSize}
-          onPageSizeChange={pageSize => this.changePageSize(pageSize)}
-        />
+        <Grid item xs={10} md={12}>
+          <ReactTable
+            data={data}
+            columns={columns}
+            defaultPageSize={this.state.pageSize}
+            onPageSizeChange={pageSize => this.changePageSize(pageSize)}
+          />
+        </Grid>
       </div>
     );
   }

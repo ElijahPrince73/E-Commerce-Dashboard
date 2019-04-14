@@ -1,10 +1,6 @@
 .new-product-container {
     z-index: 1;
     margin-top: 1%;
-    width: 100%;
-    border-top: 1px solid rgba(0,0,0,0.2);
-    border-left: 1px solid rgba(0,0,0,0.2);
-    border-right: 1px solid rgba(0,0,0,0.2);
 }
 
 .new-product-tab-bar {
@@ -13,7 +9,7 @@
 }
 
 .tab-label {
-    color: $blue !important;
+    color: #808080 !important;
 }
 .indicator {
     background-color: $blue !important;
@@ -21,8 +17,10 @@
 
 .product-info {
     background: white;
-    border-top: 1px solid rgba(0,0,0,0.2);
     border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(0,0,0,0.2);
+    border-left: 1px solid rgba(0,0,0,0.2);
+    border-right: 1px solid rgba(0,0,0,0.2);
 }
 
 .select {
