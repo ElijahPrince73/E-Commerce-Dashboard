@@ -8,6 +8,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 // Forms
 import ProductBasicInfo from '../Components/Forms/ProductBasicInfo';
 import ImageUploader from '../Components/Forms/ImageUploader';
@@ -49,6 +52,10 @@ class NewProductContainer extends React.Component {
     pictures: [],
   };
 
+  handleCloseNotification = () => {
+    this.props.closeNotification();
+  };
+
   handleChangeTab = (event, value) => {
     this.setState({ value });
   };
@@ -70,8 +77,14 @@ class NewProductContainer extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { pictures } = this.state;
+
     const data = new FormData();
-    data.append('file', pictures[0]);
+
+    // eslint-disable-next-line array-callback-return
+    pictures.map((picture) => {
+      data.append('file', picture);
+    });
+
     data.append('text', JSON.stringify(this.state));
 
     this.props.createProduct(data);
@@ -85,10 +98,32 @@ class NewProductContainer extends React.Component {
 
   render() {
     const { value } = this.state;
-    console.log(this.state);
+    console.log(this.props);
     return (
       <div>
         <form onSubmit={this.handleSubmit.bind(this)} name="file">
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            open={this.props.open}
+            onClose={this.handleCloseNotification.bind(this)}
+            ContentProps={{
+              'aria-describedby': 'message-id',
+            }}
+            message={<span id="message-id">Product Created</span>}
+            action={[
+              <IconButton
+                key="close"
+                aria-label="Close"
+                color="inherit"
+                onClick={this.handleCloseNotification.bind(this)}
+              >
+                <CloseIcon />
+              </IconButton>,
+            ]}
+          />
           <Grid
             container
             direction="row"
@@ -112,7 +147,9 @@ class NewProductContainer extends React.Component {
             </Grid>
 
             <Grid item xs={6} className="text-right">
-              <Button variant="contained" type="submit">SAVE</Button>
+              <Button variant="contained" type="submit">
+                SAVE
+              </Button>
             </Grid>
             <Grid item xs={12} className="new-product-container">
               <AppBar position="static" className="new-product-tab-bar">
@@ -131,55 +168,55 @@ class NewProductContainer extends React.Component {
               </AppBar>
 
               {value === 0 && (
-              <div className="product-info">
-                <ProductBasicInfo
-                  handleChangeSelect={this.handleChangeSelect.bind(this)}
-                  handleInputChange={this.handleInputChange.bind(this)}
-                  onSubmit={this.handleSubmit}
-                  value={this.state.category}
-                  categories={this.state.categories}
-                  category={this.state.category}
-                  productName={this.state.productName}
-                  productDescription={this.state.productDescription}
-                />
-              </div>
+                <div className="product-info">
+                  <ProductBasicInfo
+                    handleChangeSelect={this.handleChangeSelect.bind(this)}
+                    handleInputChange={this.handleInputChange.bind(this)}
+                    onSubmit={this.handleSubmit}
+                    value={this.state.category}
+                    categories={this.state.categories}
+                    category={this.state.category}
+                    productName={this.state.productName}
+                    productDescription={this.state.productDescription}
+                  />
+                </div>
               )}
               {value === 1 && (
-              <div className="product-info">
-                <ImageUploader onDrop={this.handleDrop.bind(this)} />
-              </div>
+                <div className="product-info">
+                  <ImageUploader onDrop={this.handleDrop.bind(this)} />
+                </div>
               )}
               {value === 2 && (
-              <div className="product-info">
-                <PricingForm
-                  handleInputChange={this.handleInputChange.bind(this)}
-                  priceTaxExcl={this.state.priceTaxExcl}
-                  priceTaxIncl={this.state.priceTaxIncl}
-                  taxRate={this.state.taxRate}
-                  price={this.state.price}
-                />
-              </div>
+                <div className="product-info">
+                  <PricingForm
+                    handleInputChange={this.handleInputChange.bind(this)}
+                    priceTaxExcl={this.state.priceTaxExcl}
+                    priceTaxIncl={this.state.priceTaxIncl}
+                    taxRate={this.state.taxRate}
+                    price={this.state.price}
+                  />
+                </div>
               )}
               {value === 3 && (
-              <div className="product-info">
-                <InventoryForm
-                  handleInputChange={this.handleInputChange.bind(this)}
-                  sku={this.state.sku}
-                  quanity={this.state.quanity}
-                />
-              </div>
+                <div className="product-info">
+                  <InventoryForm
+                    handleInputChange={this.handleInputChange.bind(this)}
+                    sku={this.state.sku}
+                    quanity={this.state.quanity}
+                  />
+                </div>
               )}
               {value === 4 && (
-              <div className="product-info">
-                <ShippingForm
-                  handleInputChange={this.handleInputChange.bind(this)}
-                  width={this.state.width}
-                  height={this.state.height}
-                  depth={this.state.depth}
-                  weight={this.state.weight}
-                  shippingFee={this.state.shippingFee}
-                />
-              </div>
+                <div className="product-info">
+                  <ShippingForm
+                    handleInputChange={this.handleInputChange.bind(this)}
+                    width={this.state.width}
+                    height={this.state.height}
+                    depth={this.state.depth}
+                    weight={this.state.weight}
+                    shippingFee={this.state.shippingFee}
+                  />
+                </div>
               )}
             </Grid>
           </Grid>
@@ -191,10 +228,12 @@ class NewProductContainer extends React.Component {
 
 NewProductContainer.propTypes = {
   createProduct: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  closeNotification: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
-  return state;
+  return state.productsList;
 }
 
 export default connect(

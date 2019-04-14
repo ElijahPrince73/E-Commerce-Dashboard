@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { GET_PRODUCTS, ERROR, CREATE_PRODUCT } from './types';
+import {
+  GET_PRODUCTS, ERROR, CREATE_PRODUCT, CLOSE_NOTIFICATION,
+} from './types';
 
 const localToken = localStorage.getItem('token');
 
@@ -34,11 +36,14 @@ export const createProduct = values => (dispatch) => {
     .post('http://localhost:5000/api/products', values, {
       headers: { 'x-auth': localToken, 'content-type': 'multipart/form-data' },
     })
-    .then((res) => {
-      console.log(res);
-      dispatch({ type: CREATE_PRODUCT, payload: res.data });
+    .then(() => {
+      dispatch({ type: CREATE_PRODUCT, payload: true });
     })
     .catch(() => {
       dispatch({ type: ERROR, payload: 'error' });
     });
+};
+
+export const closeNotification = () => (dispatch) => {
+  dispatch({ type: CLOSE_NOTIFICATION, payload: false });
 };

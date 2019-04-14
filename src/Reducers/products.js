@@ -1,7 +1,12 @@
-import { GET_PRODUCTS, CREATE_PRODUCT } from '../Actions/types';
+import {
+  GET_PRODUCTS,
+  CREATE_PRODUCT,
+  CLOSE_NOTIFICATION,
+} from '../Actions/types';
 
 const defaultState = {
   products: [],
+  open: false,
 };
 
 export default (state = defaultState, action) => {
@@ -12,7 +17,11 @@ export default (state = defaultState, action) => {
       };
     case CREATE_PRODUCT:
       return {
-        products: action.payload,
+        open: action.payload,
+      };
+    case CLOSE_NOTIFICATION:
+      return {
+        open: action.payload,
       };
     default:
       return state;
