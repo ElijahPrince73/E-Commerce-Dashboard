@@ -12,6 +12,7 @@ import ProductBasicInfo from '../Components/Forms/ProductBasicInfo';
 import ImageUploader from '../Components/Forms/ImageUploader';
 import PricingForm from '../Components/Forms/PricingForm';
 import InventoryForm from '../Components/Forms/Inventory';
+import ShippingForm from '../Components/Forms/ShippingForm';
 
 function TabContainer(props) {
   return <div className="product-info">{props.children}</div>;
@@ -28,6 +29,11 @@ class NewProductContainer extends React.Component {
     price: '',
     sku: '',
     quanity: '',
+    width: '',
+    height: '',
+    depth: '',
+    weight: '',
+    shippingFee: '',
     category: [],
     categories: [
       'Oliver Hansen',
@@ -157,10 +163,20 @@ class NewProductContainer extends React.Component {
                 />
               </div>
             )}
+            {value === 4 && (
+              <div className="product-info">
+                <ShippingForm
+                  handleInputChange={this.handleInputChange.bind(this)}
+                  width={this.state.width}
+                  height={this.state.height}
+                  depth={this.state.depth}
+                  weight={this.state.weight}
+                  shippingFee={this.state.shippingFee}
+                />
+              </div>
+            )}
           </div>
         </Grid>
-
-
       </div>
     );
   }
