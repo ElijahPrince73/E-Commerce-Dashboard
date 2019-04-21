@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import HomePage from './Pages/Home'
 import ProductPage from './Pages/Products'
 import NewProductPage from './Pages/NewProduct'
+import CategegoriesPage from './Pages/Categories'
 import Sidebar from './Containers/SidebarContainer'
 import axios from 'axios'
 
@@ -65,13 +66,13 @@ const Routes = () => {
             layout={MainLayout}
             component={NewProductPage}
           />
+            <AppRoute
+              path="/categories"
+              layout={MainLayout}
+            component={CategegoriesPage}
+            />
           {/* <AppRoute
             path="/products/:id"
-            layout={MainLayout}
-            component={ProductPage}
-          />
-          <AppRoute
-            path="/categories"
             layout={MainLayout}
             component={ProductPage}
           />

@@ -20,7 +20,7 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import Hidden from '@material-ui/core/Hidden';
 import * as actions from '../Actions/products';
 
-class ProductsPage extends Component {
+class ProductsContainer extends Component {
   state = {
     search: '',
     anchorEl: null,
@@ -301,7 +301,7 @@ class ProductsPage extends Component {
   }
 }
 
-ProductsPage.propTypes = {
+ProductsContainer.propTypes = {
   getProducts: PropTypes.func.isRequired,
   deleteProducts: PropTypes.func.isRequired,
   products: PropTypes.array.isRequired,
@@ -314,4 +314,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   actions,
-)(ProductsPage);
+)(ProductsContainer);
