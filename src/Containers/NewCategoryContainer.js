@@ -45,7 +45,6 @@ class NewCategoryContainer extends React.Component {
 
     render() {
       const { value } = this.state;
-      console.log(this.props);
 
       return (
         <div>
