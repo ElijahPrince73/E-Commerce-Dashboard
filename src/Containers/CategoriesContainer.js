@@ -256,7 +256,7 @@ class CategoriesContainer extends Component {
             <Grid item xs={3} className="text-right">
               <Button
                 variant="contained"
-                onClick={() => (window.location.href = '/products/new')}
+                onClick={() => (window.location.href = '/categories/new')}
               >
                             ADD NEW CATEGORY
               </Button>

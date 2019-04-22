@@ -10,6 +10,7 @@ const defaultState = {
 };
 
 export default (state = defaultState, action) => {
+  console.log(action.type, action.payload);
   switch (action.type) {
     case GET_CATEGORIES:
       return {

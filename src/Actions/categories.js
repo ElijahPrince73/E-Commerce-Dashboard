@@ -37,7 +37,6 @@ export const createCategory = values => (dispatch) => {
     .post('http://localhost:5000/api/categories', values, {
       headers: {
         'x-auth': localToken,
-        'content-type': 'multipart/form-data',
       },
     })
     .then(() => {
