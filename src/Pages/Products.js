@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import ProductsPageContainer from '../Containers/ProductsPageContainer';
+import PropTypes from 'prop-types';
+import ProductsContainer from '../Containers/ProductsContainer';
 
-class HomePage extends Component {
+class ProductsPage extends Component {
   componentDidMount() {
 
   }
 
   render() {
     return (
-      <ProductsPageContainer />
+      <ProductsContainer history={this.props.history} />
     );
   }
 }
 
-export default HomePage;
+ProductsPage.propTypes = {
+  history: PropTypes.object.isRequired,
+};
+
+export default ProductsPage;

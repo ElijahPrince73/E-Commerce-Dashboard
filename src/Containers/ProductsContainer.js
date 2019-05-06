@@ -33,9 +33,6 @@ class ProductsContainer extends Component {
 
   componentWillMount() {
     this.props.getProducts();
-  }
-
-  componentDidMount() {
     const data = [{ one: 'hi0', two: 'two0', three: 'three0' }];
 
     const checkedCopy = [];
@@ -53,11 +50,6 @@ class ProductsContainer extends Component {
     });
   }
 
-  // redirectToProductDetail(info) {
-  //   const { productId } = info.original;
-  //   // Send user to product detail page
-  //   console.log(productId);
-  // }
 
   openRemoveToolTip = (event) => {
     this.setState({ anchorEl: event.currentTarget });
@@ -67,6 +59,11 @@ class ProductsContainer extends Component {
     const { productsToBeDeleted } = this.state;
     this.props.deleteProducts(productsToBeDeleted);
     this.setState({ anchorEl: null });
+  }
+
+  redirectToProductDetail(productId) {
+    // Send user to product detail page
+    this.props.history.push(`/products/${productId}`);
   }
 
   selectAllProducts() {
@@ -232,16 +229,8 @@ class ProductsContainer extends Component {
       },
     ];
 
-    let data = this.props.products;
+    const data = this.props.products;
 
-    if (data) {
-      data = data.filter(
-        row =>
-          row.productName.includes(this.state.search)
-          || row.category.includes(this.state.search)
-          || String(row.age).includes(this.state.search),
-      );
-    }
 
     return (
       <div>
@@ -294,6 +283,9 @@ class ProductsContainer extends Component {
             columns={columns}
             defaultPageSize={this.state.pageSize}
             onPageSizeChange={pageSize => this.changePageSize(pageSize)}
+            getTrProps={(state, rowInfo) => ({
+              onClick: () => this.redirectToProductDetail(rowInfo.original._id),
+            })}
           />
         </Grid>
       </div>
@@ -305,11 +297,13 @@ ProductsContainer.propTypes = {
   getProducts: PropTypes.func.isRequired,
   deleteProducts: PropTypes.func.isRequired,
   products: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
   return state.productsList;
 }
+
 
 export default connect(
   mapStateToProps,

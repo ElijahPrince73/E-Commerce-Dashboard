@@ -1,11 +1,13 @@
 /* eslint-disable */
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from './Pages/Home'
-import ProductPage from './Pages/Products'
+import ProductsPage from './Pages/Products'
+import ProductDetailPage from './Pages/ProductDetailPage'
 import NewProductPage from './Pages/NewProduct'
 import CategegoriesPage from './Pages/Categories'
 import NewCategoryPage from './Pages/NewCategory'
+import OrdersPage from './Pages/Orders'
 import Sidebar from './Containers/SidebarContainer'
 import axios from 'axios'
 
@@ -48,7 +50,7 @@ const Routes = () => {
   return (
     <div>
       <BrowserRouter>
-        <div>
+        <Switch>
           <AppRoute
             exact
             path="/"
@@ -59,7 +61,7 @@ const Routes = () => {
             exact
             path="/products"
             layout={MainLayout}
-            component={ProductPage}
+            component={ProductsPage}
           />
           <AppRoute
             exact
@@ -79,27 +81,33 @@ const Routes = () => {
             layout={MainLayout}
             component={NewCategoryPage}
           />
-          {/* <AppRoute
-            path="/products/:id"
+          <AppRoute
+            path="/orders/"
             layout={MainLayout}
-            component={ProductPage}
+            component={OrdersPage}
           />
+          <AppRoute
+              exact
+              path="/products/:id"
+              layout={MainLayout}
+              component={ProductDetailPage}
+            />
           <AppRoute
             path="/categories/:id"
             layout={MainLayout}
-            component={ProductPage}
+            component={ProductDetailPage}
           />
           <AppRoute
             path="/orders"
             layout={MainLayout}
-            component={ProductPage}
+            component={ProductsPage}
           />
           <AppRoute
             path="/orders/:id"
             layout={MainLayout}
-            component={ProductPage}
-          /> */}
-        </div>
+            component={ProductDetailPage}
+          />
+        </Switch>
       </BrowserRouter>
     </div>
   );

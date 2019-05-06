@@ -91,7 +91,6 @@ class NewProductContainer extends React.Component {
   }
 
   handleDrop(pictureFiles) {
-    console.log(pictureFiles);
     this.setState({
       pictures: this.state.pictures.concat(pictureFiles),
     });
@@ -99,7 +98,7 @@ class NewProductContainer extends React.Component {
 
   render() {
     const { value } = this.state;
-    console.log(this.state);
+
     return (
       <div>
         <form onSubmit={this.handleSubmit.bind(this)} name="file">

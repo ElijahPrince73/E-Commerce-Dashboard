@@ -1,10 +1,11 @@
 import axios from 'axios';
 import {
-  GET_PRODUCTS, ERROR, CREATE_PRODUCT, CLOSE_NOTIFICATION,
+  GET_PRODUCTS, GET_PRODUCT, ERROR, CREATE_PRODUCT, CLOSE_NOTIFICATION,
 } from './types';
 
 const localToken = localStorage.getItem('token');
 
+// Gets all products
 export const getProducts = () => (dispatch) => {
   axios
     .get('http://localhost:5000/api/products', {
@@ -13,6 +14,21 @@ export const getProducts = () => (dispatch) => {
     })
     .then((res) => {
       dispatch({ type: GET_PRODUCTS, payload: res.data });
+    })
+    .catch(() => {
+      dispatch({ type: ERROR, payload: 'error' });
+    });
+};
+
+// Gets one product
+export const getProduct = productId => (dispatch) => {
+  axios
+    .get(`http://localhost:5000/api/product/${productId}`, {
+      headers: { 'x-auth': localToken },
+      params: { access: 'admin' },
+    })
+    .then((res) => {
+      dispatch({ type: GET_PRODUCT, payload: res.data });
     })
     .catch(() => {
       dispatch({ type: ERROR, payload: 'error' });

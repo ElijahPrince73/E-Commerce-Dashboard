@@ -33,9 +33,6 @@ class CategoriesContainer extends Component {
 
     componentWillMount() {
       this.props.getCategories();
-    }
-
-    componentDidMount() {
       const data = [{ one: 'hi0', two: 'two0', three: 'three0' }];
 
       const checkedCopy = [];
@@ -52,6 +49,7 @@ class CategoriesContainer extends Component {
         selectAll,
       });
     }
+
 
     // redirectToCatgoryDetail(info) {
     //   const { productId } = info.original;
@@ -283,7 +281,6 @@ CategoriesContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  console.log(state.categoriesList);
   return state.categoriesList;
 }
 

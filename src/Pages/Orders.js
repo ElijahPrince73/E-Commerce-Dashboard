@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import HomeContainer from '../Containers/HomeContainer';
+import OrdersContainer from '../Containers/OrdersContainer';
 
 class HomePage extends Component {
   componentDidMount() {
@@ -8,7 +8,7 @@ class HomePage extends Component {
 
   render() {
     return (
-      <HomeContainer />
+      <OrdersContainer />
     );
   }
 }

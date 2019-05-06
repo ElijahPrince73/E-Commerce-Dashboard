@@ -40,7 +40,7 @@ const ProductBasicInfo = props => (
           margin="normal"
         >
           <InputLabel htmlFor="select-multiple-checkbox" className="ml-2">
-            Select categories
+              Select categories
           </InputLabel>
           <Select
             multiple

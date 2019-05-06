@@ -1,5 +1,6 @@
 import {
   GET_PRODUCTS,
+  GET_PRODUCT,
   CREATE_PRODUCT,
   CLOSE_NOTIFICATION,
 } from '../Actions/types';
@@ -14,6 +15,11 @@ export default (state = defaultState, action) => {
     case GET_PRODUCTS:
       return {
         products: action.payload,
+      };
+    case GET_PRODUCT:
+      return {
+        product: action.payload,
+        open: state.open,
       };
     case CREATE_PRODUCT:
       return {
