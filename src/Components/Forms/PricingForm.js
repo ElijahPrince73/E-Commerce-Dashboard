@@ -9,7 +9,7 @@ const PricingForm = props => (
       <Grid item xs={8}>
         <TextField
           label="Tax Excluded Price"
-          type="text"
+          type="number"
           name="priceTaxExcl"
           variant="outlined"
           margin="normal"
@@ -20,7 +20,7 @@ const PricingForm = props => (
         />
         <TextField
           label="Tax Included Price"
-          type="text"
+          type="number"
           name="priceTaxIncl"
           variant="outlined"
           margin="normal"
@@ -31,7 +31,7 @@ const PricingForm = props => (
         />
         <TextField
           label="Tax Rate"
-          type="text"
+          type="number"
           name="taxRate"
           variant="outlined"
           margin="normal"

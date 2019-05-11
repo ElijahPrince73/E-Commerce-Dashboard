@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -18,7 +19,9 @@ import PricingForm from '../Components/Forms/PricingForm';
 import InventoryForm from '../Components/Forms/Inventory';
 import ShippingForm from '../Components/Forms/ShippingForm';
 
-import * as actions from '../Actions/products';
+import * as productActionsCreators from '../Actions/products';
+import * as categoriesActionsCreators from '../Actions/categories';
+
 
 class ProductDetailContainer extends React.Component {
     state = {
@@ -43,23 +46,56 @@ class ProductDetailContainer extends React.Component {
     };
 
     componentWillMount() {
-      const { productId } = this.props;
-      this.props.getProduct(productId);
+      const { getProduct } = this.props.productActions;
+      const productId = this.props.productId;
+      const { getCategories } = this.props.categoryActions;
+      getProduct(productId);
+      getCategories();
     }
 
 
     componentWillReceiveProps(props) {
       const {
-        categories, price, images, productDescription, productName, sku,
+        categories,
+        price,
+        images,
+        productDescription,
+        productName,
+        sku,
+        priceTaxExcl,
+        priceTaxIncl,
+        taxRate,
+        weight,
+        width,
+        height,
+        depth,
+        shippingFee,
+        quanity,
       } = props.product;
 
       this.setState({
-        category: categories, categories, price, images, productDescription, productName, sku,
+        category: categories,
+        categories,
+        price,
+        images,
+        productDescription,
+        productName,
+        sku,
+        priceTaxExcl,
+        priceTaxIncl,
+        taxRate,
+        width,
+        weight,
+        height,
+        depth,
+        shippingFee,
+        quanity,
       });
     }
 
     handleCloseNotification = () => {
-      this.props.closeNotification();
+      const { closeNotification } = this.props.product;
+      closeNotification();
     };
 
     handleChangeTab = (event, value) => {
@@ -104,7 +140,7 @@ class ProductDetailContainer extends React.Component {
 
     render() {
       const { value } = this.state;
-
+      console.log(this.props);
       return (
         <div>
           <form name="file">
@@ -154,7 +190,7 @@ class ProductDetailContainer extends React.Component {
 
               <Grid item xs={6} className="text-right">
                 <Button variant="contained" type="submit">
-                                SAVE
+                    SAVE
                 </Button>
               </Grid>
               <Grid item xs={12} className="new-product-container">
@@ -180,7 +216,7 @@ class ProductDetailContainer extends React.Component {
                     handleInputChange={this.handleInputChange.bind(this)}
                     onSubmit={this.handleSubmit}
                     value={this.state.category}
-                    categories={this.state.categories}
+                    categories={this.props.categories}
                     category={this.state.category}
                     productName={this.state.productName}
                     productDescription={this.state.productDescription}
@@ -233,18 +269,30 @@ class ProductDetailContainer extends React.Component {
 }
 
 ProductDetailContainer.propTypes = {
-  getProduct: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  closeNotification: PropTypes.func.isRequired,
-  product: PropTypes.object.isRequired,
+  productActions: PropTypes.object.isRequired,
+  categoryActions: PropTypes.object.isRequired,
   productId: PropTypes.string.isRequired,
+  product: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
+  open: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
-  return state.productsList;
+  return {
+    product: state.productsList.product,
+    open: state.productsList.open,
+    categories: state.categoriesList.categories,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    productActions: bindActionCreators(productActionsCreators, dispatch),
+    categoryActions: bindActionCreators(categoriesActionsCreators, dispatch),
+  };
 }
 
 export default connect(
   mapStateToProps,
-  actions,
+  mapDispatchToProps,
 )(ProductDetailContainer);

@@ -8,6 +8,7 @@ import {
 const defaultState = {
   products: [],
   open: false,
+  product: {},
 };
 
 export default (state = defaultState, action) => {

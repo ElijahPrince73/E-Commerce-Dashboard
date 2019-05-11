@@ -51,13 +51,13 @@ const ProductBasicInfo = props => (
           >
             {props.categories.map(category => (
               <MenuItem
-                key={category}
-                value={category}
+                key={category._id}
+                value={category.categoryName}
                 classes={{
                   selected: 'dropdown-selected',
                 }}
               >
-                {category}
+                {category.categoryName}
               </MenuItem>
             ))}
           </Select>

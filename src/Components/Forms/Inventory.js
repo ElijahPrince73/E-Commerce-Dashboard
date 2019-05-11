@@ -19,14 +19,14 @@ const InventoryForm = props => (
           fullWidth
         />
         <TextField
-          label="Quanity"
+          label="Quantity"
           type="number"
-          name="quanity"
+          name="quantity"
           variant="outlined"
           margin="normal"
           rows="5"
           onChange={props.handleInputChange}
-          value={props.quanity}
+          value={props.quantity}
           fullWidth
         />
       </Grid>

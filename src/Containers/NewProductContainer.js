@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -18,7 +19,8 @@ import PricingForm from '../Components/Forms/PricingForm';
 import InventoryForm from '../Components/Forms/Inventory';
 import ShippingForm from '../Components/Forms/ShippingForm';
 
-import * as actions from '../Actions/products';
+import * as productActionsCreators from '../Actions/products';
+import * as categoriesActionsCreators from '../Actions/categories';
 
 class NewProductContainer extends React.Component {
   state = {
@@ -30,30 +32,24 @@ class NewProductContainer extends React.Component {
     taxRate: '',
     price: '',
     sku: '',
-    quanity: '',
+    quantity: '',
     width: '',
     height: '',
     depth: '',
     weight: '',
     shippingFee: '',
-    category: [],
-    categories: [
-      'Oliver Hansen',
-      'Van Henry',
-      'April Tucker',
-      'Ralph Hubbard',
-      'Omar Alexander',
-      'Carlos Abbott',
-      'Miriam Wagner',
-      'Bradley Wilkerson',
-      'Virginia Andrews',
-      'Kelly Snyder',
-    ],
+    categories: [],
     pictures: [],
   };
 
+  componentWillMount() {
+    const { getCategories } = this.props.categoryActions;
+    getCategories();
+  }
+
   handleCloseNotification = () => {
-    this.props.closeNotification();
+    const { closeNotification } = this.props.productActions;
+    closeNotification();
   };
 
   handleChangeTab = (event, value) => {
@@ -71,11 +67,12 @@ class NewProductContainer extends React.Component {
   }
 
   handleChangeSelect(event) {
-    this.setState({ category: event.target.value });
+    this.setState({ categories: event.target.value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    const { createProduct } = this.props.productActions;
     const { pictures } = this.state;
 
     const data = new FormData();
@@ -87,7 +84,7 @@ class NewProductContainer extends React.Component {
 
     data.append('text', JSON.stringify(this.state));
 
-    this.props.createProduct(data);
+    createProduct(data);
   }
 
   handleDrop(pictureFiles) {
@@ -107,7 +104,7 @@ class NewProductContainer extends React.Component {
               vertical: 'top',
               horizontal: 'center',
             }}
-            open={this.props.open}
+            open={this.props.productsList.open}
             onClose={this.handleCloseNotification.bind(this)}
             ContentProps={{
               'aria-describedby': 'message-id',
@@ -174,8 +171,8 @@ class NewProductContainer extends React.Component {
                     handleInputChange={this.handleInputChange.bind(this)}
                     onSubmit={this.handleSubmit}
                     value={this.state.category}
-                    categories={this.state.categories}
-                    category={this.state.category}
+                    categories={this.props.categories}
+                    category={this.state.categories}
                     productName={this.state.productName}
                     productDescription={this.state.productDescription}
                   />
@@ -202,7 +199,7 @@ class NewProductContainer extends React.Component {
                   <InventoryForm
                     handleInputChange={this.handleInputChange.bind(this)}
                     sku={this.state.sku}
-                    quanity={this.state.quanity}
+                    quantity={this.state.quantity}
                   />
                 </div>
               )}
@@ -227,16 +224,27 @@ class NewProductContainer extends React.Component {
 }
 
 NewProductContainer.propTypes = {
-  createProduct: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  closeNotification: PropTypes.func.isRequired,
+  productActions: PropTypes.object.isRequired,
+  categoryActions: PropTypes.object.isRequired,
+  productsList: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state) {
-  return state.productsList;
+  return {
+    productsList: state.productsList,
+    categories: state.categoriesList.categories,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    productActions: bindActionCreators(productActionsCreators, dispatch),
+    categoryActions: bindActionCreators(categoriesActionsCreators, dispatch),
+  };
 }
 
 export default connect(
   mapStateToProps,
-  actions,
+  mapDispatchToProps,
 )(NewProductContainer);
