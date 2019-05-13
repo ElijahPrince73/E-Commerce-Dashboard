@@ -9,6 +9,7 @@ import CategegoriesPage from './Pages/Categories'
 import CategoryDetailPagee from './Pages/CategoryDetail'
 import NewCategoryPage from './Pages/NewCategory'
 import OrdersPage from './Pages/Orders'
+import OrderDetailPage from './Pages/OrderDetail'
 import Sidebar from './Containers/SidebarContainer'
 import axios from 'axios'
 
@@ -95,14 +96,16 @@ const Routes = () => {
             component={CategoryDetailPagee}
           />
           <AppRoute
+            exact
             path="/orders"
             layout={MainLayout}
             component={OrdersPage}
           />
           <AppRoute
+            exact
             path="/orders/:id"
             layout={MainLayout}
-            component={ProductDetailPage}
+            component={OrderDetailPage}
           />
         </Switch>
       </BrowserRouter>

@@ -18,10 +18,6 @@ import CategoryBasicInfo from '../Components/Forms/CategoryBasicInfo';
 import * as actions from '../Actions/categories';
 
 class NewCategoryContainer extends Component {
-  static defaultProps = {
-    category: {},
-  }
-
   state = {
     value: 0,
     categoryName: '',
@@ -154,6 +150,7 @@ NewCategoryContainer.propTypes = {
   updateCategory: PropTypes.func.isRequired,
   getCategory: PropTypes.func.isRequired,
   categoryId: PropTypes.string.isRequired,
+  category: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
   closeNotification: PropTypes.func.isRequired,
 };

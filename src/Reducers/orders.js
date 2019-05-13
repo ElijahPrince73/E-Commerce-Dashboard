@@ -1,10 +1,8 @@
-import {
-  GET_ORDERS,
-} from '../Actions/types';
+import { GET_ORDERS, GET_ORDER } from '../Actions/types';
 
 const defaultState = {
   orders: [],
-  open: false,
+  order: {},
 };
 
 export default (state = defaultState, action) => {
@@ -12,6 +10,10 @@ export default (state = defaultState, action) => {
     case GET_ORDERS:
       return {
         orders: action.payload,
+      };
+    case GET_ORDER:
+      return {
+        order: action.payload,
       };
     default:
       return state;
