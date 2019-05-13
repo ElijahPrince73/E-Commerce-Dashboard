@@ -13,7 +13,7 @@ export default (state = defaultState, action) => {
   switch (action.type) {
     case GET_CATEGORIES:
       return {
-        categories: action.payload || state.categories,
+        categories: action.payload,
       };
     case CREATE_CATEGORIES:
       return {

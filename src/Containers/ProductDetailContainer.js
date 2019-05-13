@@ -24,6 +24,11 @@ import * as categoriesActionsCreators from '../Actions/categories';
 
 
 class ProductDetailContainer extends React.Component {
+  static defaultProps = {
+    product: {},
+    categories: [],
+  }
+
     state = {
       value: 0,
       productName: '',
@@ -33,7 +38,7 @@ class ProductDetailContainer extends React.Component {
       taxRate: '',
       price: '',
       sku: '',
-      quanity: '',
+      quantity: '',
       width: '',
       height: '',
       depth: '',
@@ -55,46 +60,48 @@ class ProductDetailContainer extends React.Component {
 
 
     componentWillReceiveProps(props) {
-      const {
-        categories,
-        price,
-        images,
-        productDescription,
-        productName,
-        sku,
-        priceTaxExcl,
-        priceTaxIncl,
-        taxRate,
-        weight,
-        width,
-        height,
-        depth,
-        shippingFee,
-        quanity,
-      } = props.product;
+      if (props.product !== undefined) {
+        const {
+          categories,
+          price,
+          images,
+          productDescription,
+          productName,
+          sku,
+          priceTaxExcl,
+          priceTaxIncl,
+          taxRate,
+          weight,
+          width,
+          height,
+          depth,
+          shippingFee,
+          quantity,
+        } = props.product;
 
-      this.setState({
-        category: categories,
-        categories,
-        price,
-        images,
-        productDescription,
-        productName,
-        sku,
-        priceTaxExcl,
-        priceTaxIncl,
-        taxRate,
-        width,
-        weight,
-        height,
-        depth,
-        shippingFee,
-        quanity,
-      });
+        this.setState({
+          category: categories,
+          categories,
+          price,
+          images,
+          productDescription,
+          productName,
+          sku,
+          priceTaxExcl,
+          priceTaxIncl,
+          taxRate,
+          width,
+          weight,
+          height,
+          depth,
+          shippingFee,
+          quantity,
+        });
+      }
     }
 
     handleCloseNotification = () => {
-      const { closeNotification } = this.props.product;
+      const { closeNotification } = this.props.productActions;
       closeNotification();
     };
 
@@ -116,21 +123,12 @@ class ProductDetailContainer extends React.Component {
       this.setState({ category: event.target.value });
     }
 
-    // handleSubmit(e) {
-    //   e.preventDefault();
-    //   const { pictures } = this.state;
-
-    //   const data = new FormData();
-
-    //   // eslint-disable-next-line array-callback-return
-    //   pictures.map((picture) => {
-    //     data.append('file', picture);
-    //   });
-
-    //   data.append('text', JSON.stringify(this.state));
-
-    //   this.props.createProduct(data);
-    // }
+    handleSubmit(e) {
+      e.preventDefault();
+      const { updateProduct } = this.props.productActions;
+      const productId = this.props.productId;
+      updateProduct(productId, this.state);
+    }
 
     handleDrop(pictureFiles) {
       this.setState({
@@ -140,10 +138,11 @@ class ProductDetailContainer extends React.Component {
 
     render() {
       const { value } = this.state;
-      console.log(this.props);
+      const { categories } = this.props;
+      console.log(this.state);
       return (
         <div>
-          <form name="file">
+          <form name="file" onSubmit={this.handleSubmit.bind(this)}>
             <Snackbar
               anchorOrigin={{
                 vertical: 'top',
@@ -154,7 +153,9 @@ class ProductDetailContainer extends React.Component {
               ContentProps={{
                 'aria-describedby': 'message-id',
               }}
-              message={<span id="message-id">Product Created</span>}
+              message={
+                <span id="message-idproductName">Product Created</span>
+              }
               action={[
                 <IconButton
                   key="close"
@@ -190,7 +191,7 @@ class ProductDetailContainer extends React.Component {
 
               <Grid item xs={6} className="text-right">
                 <Button variant="contained" type="submit">
-                    SAVE
+                  SAVE
                 </Button>
               </Grid>
               <Grid item xs={12} className="new-product-container">
@@ -210,55 +211,65 @@ class ProductDetailContainer extends React.Component {
                 </AppBar>
 
                 {value === 0 && (
-                <div className="product-info">
-                  <ProductBasicInfo
-                    handleChangeSelect={this.handleChangeSelect.bind(this)}
-                    handleInputChange={this.handleInputChange.bind(this)}
-                    onSubmit={this.handleSubmit}
-                    value={this.state.category}
-                    categories={this.props.categories}
-                    category={this.state.category}
-                    productName={this.state.productName}
-                    productDescription={this.state.productDescription}
-                  />
-                </div>
+                  <div className="product-info">
+                    <ProductBasicInfo
+                      handleChangeSelect={this.handleChangeSelect.bind(
+                        this,
+                      )}
+                      handleInputChange={this.handleInputChange.bind(
+                        this,
+                      )}
+                      onSubmit={this.handleSubmit}
+                      value={this.state.category}
+                      categories={categories}
+                      category={this.state.category}
+                      productName={this.state.productName}
+                      productDescription={this.state.productDescription}
+                    />
+                  </div>
                 )}
                 {value === 1 && (
-                <div className="product-info">
-                  <ListImages images={this.state.images} />
-                </div>
+                  <div className="product-info">
+                    <ListImages images={this.state.images} />
+                  </div>
                 )}
                 {value === 2 && (
-                <div className="product-info">
-                  <PricingForm
-                    handleInputChange={this.handleInputChange.bind(this)}
-                    priceTaxExcl={this.state.priceTaxExcl}
-                    priceTaxIncl={this.state.priceTaxIncl}
-                    taxRate={this.state.taxRate}
-                    price={this.state.price}
-                  />
-                </div>
+                  <div className="product-info">
+                    <PricingForm
+                      handleInputChange={this.handleInputChange.bind(
+                        this,
+                      )}
+                      priceTaxExcl={this.state.priceTaxExcl}
+                      priceTaxIncl={this.state.priceTaxIncl}
+                      taxRate={this.state.taxRate}
+                      price={this.state.price}
+                    />
+                  </div>
                 )}
                 {value === 3 && (
-                <div className="product-info">
-                  <InventoryForm
-                    handleInputChange={this.handleInputChange.bind(this)}
-                    sku={this.state.sku}
-                    quanity={this.state.quanity}
-                  />
-                </div>
+                  <div className="product-info">
+                    <InventoryForm
+                      handleInputChange={this.handleInputChange.bind(
+                        this,
+                      )}
+                      sku={this.state.sku}
+                      quantity={this.state.quantity}
+                    />
+                  </div>
                 )}
                 {value === 4 && (
-                <div className="product-info">
-                  <ShippingForm
-                    handleInputChange={this.handleInputChange.bind(this)}
-                    width={this.state.width}
-                    height={this.state.height}
-                    depth={this.state.depth}
-                    weight={this.state.weight}
-                    shippingFee={this.state.shippingFee}
-                  />
-                </div>
+                  <div className="product-info">
+                    <ShippingForm
+                      handleInputChange={this.handleInputChange.bind(
+                        this,
+                      )}
+                      width={this.state.width}
+                      height={this.state.height}
+                      depth={this.state.depth}
+                      weight={this.state.weight}
+                      shippingFee={this.state.shippingFee}
+                    />
+                  </div>
                 )}
               </Grid>
             </Grid>
@@ -272,8 +283,8 @@ ProductDetailContainer.propTypes = {
   productActions: PropTypes.object.isRequired,
   categoryActions: PropTypes.object.isRequired,
   productId: PropTypes.string.isRequired,
-  product: PropTypes.object.isRequired,
-  categories: PropTypes.array.isRequired,
+  product: PropTypes.object,
+  categories: PropTypes.array,
   open: PropTypes.bool.isRequired,
 };
 

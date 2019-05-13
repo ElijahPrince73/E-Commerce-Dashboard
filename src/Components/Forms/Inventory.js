@@ -37,7 +37,7 @@ const InventoryForm = props => (
 InventoryForm.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   sku: PropTypes.string.isRequired,
-  quanity: PropTypes.string.isRequired,
+  quantity: PropTypes.string.isRequired,
 };
 
 export default InventoryForm;

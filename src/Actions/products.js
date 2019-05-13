@@ -35,6 +35,18 @@ export const getProduct = productId => (dispatch) => {
     });
 };
 
+export const updateProduct = (productId, values) => (dispatch) => {
+  axios.put(`http://localhost:5000/api/product/${productId}`, values, {
+    headers: { 'x-auth': localToken },
+  })
+    .then(() => {
+      dispatch(getProduct(productId));
+      dispatch({ type: CREATE_PRODUCT, payload: true });
+    }).catch(() => {
+      dispatch({ type: ERROR, payload: 'error' });
+    });
+};
+
 export const deleteProducts = ids => (dispatch) => {
   axios
     .post('http://localhost:5000/api/products-delete', { ids }, {
