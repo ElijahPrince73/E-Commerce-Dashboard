@@ -109,7 +109,7 @@ class Sidebar extends React.Component {
       <div>
         <div className="drawer-header">{this.renderUser()}</div>
         <List>
-          {['Products', 'Categories', 'Orders', 'New Product'].map(text => (
+          {['Products', 'Categories', 'Orders'].map(text => (
             <div key={text} className="nav-item">
               <NavLink
                 to={`/${text.replace(/\s+/g, '-').toLowerCase()}`}

@@ -151,7 +151,6 @@ Price:
                 <Link to="/categories" className="back-link">
                   <span>Orders</span>
                 </Link>
-                <h2 className="m-0 mt-3 mb-1">Order</h2>
               </Grid>
             </Grid>
 
@@ -168,7 +167,7 @@ Price:
                   classes={{ indicator: 'indicator' }}
                   variant="scrollable"
                 >
-                  <Tab label="Basic Info" className="tab-label" />
+                  <Tab label="Order" className="tab-label" />
                 </Tabs>
               </AppBar>
 
