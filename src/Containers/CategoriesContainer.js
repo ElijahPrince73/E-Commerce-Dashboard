@@ -50,16 +50,16 @@ class CategoriesContainer extends Component {
       });
     }
 
-
-    // redirectToCatgoryDetail(info) {
-    //   const { productId } = info.original;
-    //   // Send user to product detail page
-    //   console.log(productId);
-    // }
-
     openRemoveToolTip = (event) => {
       this.setState({ anchorEl: event.currentTarget });
     };
+
+    redirectToCatgoryDetail(productId) {
+      // Send user to category detail page
+      this.props.history.push(
+        `/categories/${productId}`,
+      );
+    }
 
     deleteProducts() {
       const { categoriesToBeDeleted } = this.state;
@@ -245,9 +245,10 @@ class CategoriesContainer extends Component {
                 <InputBase
                   fullWidth
                   placeholder="Search"
-
                   value={this.state.search}
-                  onChange={e => this.setState({ search: e.target.value })}
+                  onChange={e =>
+                    this.setState({ search: e.target.value })
+                  }
                 />
               </Paper>
             </Grid>
@@ -256,7 +257,7 @@ class CategoriesContainer extends Component {
                 variant="contained"
                 onClick={() => (window.location.href = '/categories/new')}
               >
-                            ADD NEW CATEGORY
+                ADD NEW CATEGORY
               </Button>
             </Grid>
           </Grid>
@@ -267,6 +268,10 @@ class CategoriesContainer extends Component {
               columns={columns}
               defaultPageSize={this.state.pageSize}
               onPageSizeChange={pageSize => this.changePageSize(pageSize)}
+              getTrProps={(state, rowInfo) => ({
+                onClick: () =>
+                  this.redirectToCatgoryDetail(rowInfo.original._id),
+              })}
             />
           </Grid>
         </div>
@@ -278,6 +283,7 @@ CategoriesContainer.propTypes = {
   getCategories: PropTypes.func.isRequired,
   deleteCategories: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {

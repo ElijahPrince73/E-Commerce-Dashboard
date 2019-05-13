@@ -8,47 +8,45 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-const ProductBasicInfo = (props) => {
-  console.log(props);
-  return (
-    <div className="ml-3 pb-3">
-      <Grid container alignItems="flex-start" spacing={24}>
-        <Grid item xs={8}>
-          <TextField
-            label="Name"
-            type="text"
-            name="productName"
-            variant="outlined"
-            margin="normal"
-            onChange={props.handleInputChange}
-            value={props.productName}
-            required
-            fullWidth
-          />
-          <TextField
-            label="Description*"
-            type="text"
-            name="productDescription"
-            variant="outlined"
-            margin="normal"
-            rows="5"
-            onChange={props.handleInputChange}
-            value={props.productDescription}
-            fullWidth
-            multiline
-          />
-          <FormControl className="select" margin="normal">
-            <InputLabel htmlFor="select-multiple-checkbox" className="ml-2">
+const ProductBasicInfo = props => (
+  <div className="ml-3 pb-3">
+    <Grid container alignItems="flex-start" spacing={24}>
+      <Grid item xs={8}>
+        <TextField
+          label="Name"
+          type="text"
+          name="productName"
+          variant="outlined"
+          margin="normal"
+          onChange={props.handleInputChange}
+          value={props.productName}
+          required
+          fullWidth
+        />
+        <TextField
+          label="Description*"
+          type="text"
+          name="productDescription"
+          variant="outlined"
+          margin="normal"
+          rows="5"
+          onChange={props.handleInputChange}
+          value={props.productDescription}
+          fullWidth
+          multiline
+        />
+        <FormControl className="select" margin="normal">
+          <InputLabel htmlFor="select-multiple-checkbox" className="ml-2">
               Select categories
-            </InputLabel>
-            <Select
-              multiple
-              value={props.category}
-              onChange={props.handleChangeSelect}
-              input={<Input id="select-multiple-checkbox" />}
-              variant="outlined"
-            >
-              {props.categories
+          </InputLabel>
+          <Select
+            multiple
+            value={props.category}
+            onChange={props.handleChangeSelect}
+            input={<Input id="select-multiple-checkbox" />}
+            variant="outlined"
+          >
+            {props.categories
                 && props.categories.map(category => (
                   <MenuItem
                     key={category._id}
@@ -60,13 +58,12 @@ const ProductBasicInfo = (props) => {
                     {category}
                   </MenuItem>
                 ))}
-            </Select>
-          </FormControl>
-        </Grid>
+          </Select>
+        </FormControl>
       </Grid>
-    </div>
-  );
-};
+    </Grid>
+  </div>
+);
 
 ProductBasicInfo.propTypes = {
   handleInputChange: PropTypes.func.isRequired,

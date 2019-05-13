@@ -85,7 +85,7 @@ class NewCategoryContainer extends React.Component {
                   <ArrowBack />
                 </Grid>
                 <Grid item xs={10} className="mt-1">
-                  <Link to="/products" className="back-link">
+                  <Link to="/categories" className="back-link">
                     <span>Categories</span>
                   </Link>
                   <h2 className="m-0 mt-3 mb-1">New Category</h2>

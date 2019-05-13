@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ProductDetailContainer from '../Containers/ProductDetailContainer';
 
-class HomePage extends Component {
+class ProductDetailPage extends Component {
   componentDidMount() {
 
   }
@@ -13,4 +14,8 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+ProductDetailPage.propTypes = {
+  match: PropTypes.object.isRequired,
+};
+
+export default ProductDetailPage;

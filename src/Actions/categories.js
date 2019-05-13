@@ -1,6 +1,10 @@
 import axios from 'axios';
 import {
-  GET_CATEGORIES, ERROR, CREATE_CATEGORIES, CLOSE_NOTIFICATION,
+  GET_CATEGORIES,
+  GET_CATEGORY,
+  ERROR,
+  CREATE_CATEGORIES,
+  CLOSE_NOTIFICATION,
 } from './types';
 
 const localToken = localStorage.getItem('token');
@@ -19,6 +23,20 @@ export const getCategories = () => (dispatch) => {
     });
 };
 
+export const getCategory = categoryId => (dispatch) => {
+  axios
+    .get(`http://localhost:5000/api/categories/${categoryId}`, {
+      headers: { 'x-auth': localToken },
+      params: { access: 'admin' },
+    })
+    .then((res) => {
+      dispatch({ type: GET_CATEGORY, payload: res.data });
+    })
+    .catch(() => {
+      dispatch({ type: ERROR, payload: 'error' });
+    });
+};
+
 export const deleteCategories = ids => (dispatch) => {
   axios
     .post('http://localhost:5000/api/categories-delete', { ids }, {
@@ -28,6 +46,18 @@ export const deleteCategories = ids => (dispatch) => {
       dispatch(getCategories());
     })
     .catch(() => {
+      dispatch({ type: ERROR, payload: 'error' });
+    });
+};
+
+export const updateCategory = (categoryId, values) => (dispatch) => {
+  axios.put(`http://localhost:5000/api/categories/${categoryId}`, values, {
+    headers: { 'x-auth': localToken },
+  })
+    .then(() => {
+      dispatch({ type: CREATE_CATEGORIES, payload: true });
+      dispatch(getCategory(categoryId));
+    }).catch(() => {
       dispatch({ type: ERROR, payload: 'error' });
     });
 };

@@ -184,7 +184,7 @@ class ProductDetailContainer extends React.Component {
                   <Link to="/products" className="back-link">
                     <span>Products</span>
                   </Link>
-                  <h2 className="m-0 mt-3 mb-1">New Product</h2>
+                  <h2 className="m-0 mt-3 mb-1">Update Product</h2>
                   <span>Product Detail</span>
                 </Grid>
               </Grid>

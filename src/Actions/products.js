@@ -40,7 +40,6 @@ export const updateProduct = (productId, values) => (dispatch) => {
     headers: { 'x-auth': localToken },
   })
     .then(() => {
-      dispatch(getProduct(productId));
       dispatch({ type: CREATE_PRODUCT, payload: true });
     }).catch(() => {
       dispatch({ type: ERROR, payload: 'error' });

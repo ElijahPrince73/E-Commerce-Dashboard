@@ -6,6 +6,7 @@ import ProductsPage from './Pages/Products'
 import ProductDetailPage from './Pages/ProductDetailPage'
 import NewProductPage from './Pages/NewProduct'
 import CategegoriesPage from './Pages/Categories'
+import CategoryDetailPagee from './Pages/CategoryDetail'
 import NewCategoryPage from './Pages/NewCategory'
 import OrdersPage from './Pages/Orders'
 import Sidebar from './Containers/SidebarContainer'
@@ -71,6 +72,12 @@ const Routes = () => {
           />
           <AppRoute
             exact
+            path="/products/:id"
+            layout={MainLayout}
+            component={ProductDetailPage}
+          />
+          <AppRoute
+            exact
             path="/categories"
             layout={MainLayout}
             component={CategegoriesPage}
@@ -82,25 +89,15 @@ const Routes = () => {
             component={NewCategoryPage}
           />
           <AppRoute
-            path="/orders/"
-            layout={MainLayout}
-            component={OrdersPage}
-          />
-          <AppRoute
-              exact
-              path="/products/:id"
-              layout={MainLayout}
-              component={ProductDetailPage}
-            />
-          <AppRoute
+            exact
             path="/categories/:id"
             layout={MainLayout}
-            component={ProductDetailPage}
+            component={CategoryDetailPagee}
           />
           <AppRoute
             path="/orders"
             layout={MainLayout}
-            component={ProductsPage}
+            component={OrdersPage}
           />
           <AppRoute
             path="/orders/:id"

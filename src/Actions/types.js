@@ -5,6 +5,7 @@ export const ERROR = 'ERROR';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const CLOSE_NOTIFICATION = 'CLOSE_NOTIFICATION';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const GET_CATEGORY = 'GET_CATEGORY';
 export const CREATE_CATEGORIES = 'CREATE_CATEGORIES';
 export const GET_ORDERS = 'GET_ORDERS';
 export const GET_ORDER = 'GET_ORDER';
