@@ -60,7 +60,14 @@ class ProductDetailContainer extends React.Component {
 
 
     componentWillReceiveProps(props) {
-      if (props.product !== undefined) {
+      let categoriesFromServer;
+      if (props.categories.length > 0) {
+        // eslint-disable-next-line no-param-reassign
+        categoriesFromServer = props.categories.map(category => category = category.categoryName);
+      } else {
+        categoriesFromServer = [];
+      }
+      if (Object.keys(props.product).length !== 0) {
         const {
           categories,
           price,
@@ -79,9 +86,11 @@ class ProductDetailContainer extends React.Component {
           quantity,
         } = props.product;
 
+        const combinedCatgories = [...categoriesFromServer, ...categories];
+
         this.setState({
           category: categories,
-          categories,
+          categories: combinedCatgories,
           price,
           images,
           productDescription,
@@ -137,9 +146,8 @@ class ProductDetailContainer extends React.Component {
     }
 
     render() {
-      const { value } = this.state;
-      const { categories } = this.props;
-      console.log(this.state);
+      const { value, categories } = this.state;
+
       return (
         <div>
           <form name="file" onSubmit={this.handleSubmit.bind(this)}>
@@ -220,7 +228,6 @@ class ProductDetailContainer extends React.Component {
                         this,
                       )}
                       onSubmit={this.handleSubmit}
-                      value={this.state.category}
                       categories={categories}
                       category={this.state.category}
                       productName={this.state.productName}

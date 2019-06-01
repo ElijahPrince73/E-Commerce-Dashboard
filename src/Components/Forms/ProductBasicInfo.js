@@ -43,13 +43,13 @@ const ProductBasicInfo = props => (
             multiple
             value={props.category}
             onChange={props.handleChangeSelect}
-            input={<Input id="select-multiple-checkbox" />}
+            input={<Input id="select-multiple" />}
             variant="outlined"
           >
             {props.categories
                 && props.categories.map(category => (
                   <MenuItem
-                    key={category._id}
+                    key={category}
                     value={category}
                     classes={{
                       selected: 'dropdown-selected',
