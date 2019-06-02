@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import ReactTable from 'react-table';
+import Fuse from 'fuse.js';
 import 'react-table/react-table.css';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -19,6 +20,20 @@ import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import Hidden from '@material-ui/core/Hidden';
 import * as actions from '../Actions/products';
+
+const options = {
+  shouldSort: true,
+  threshold: 0.6,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: [
+    'productName',
+    'categories',
+    'sku',
+  ],
+};
 
 class ProductsContainer extends Component {
   state = {
@@ -50,10 +65,32 @@ class ProductsContainer extends Component {
     });
   }
 
+  componentWillReceiveProps(props) {
+    const { products } = props;
+    if (products.length > 0) {
+      this.setState({ filteredData: products, data: products });
+    }
+  }
+
 
   openRemoveToolTip = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
+
+  handleFilter(e) {
+    const { target } = e;
+    const { value } = target;
+    const { data } = this.state;
+
+    const fuse = new Fuse(data, options);
+    const result = fuse.search(value);
+
+    if (value === '') {
+      this.setState({ search: value, filteredData: data });
+    } else {
+      this.setState({ search: value, filteredData: result });
+    }
+  }
 
   deleteProducts() {
     const { productsToBeDeleted } = this.state;
@@ -111,7 +148,7 @@ class ProductsContainer extends Component {
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
-
+    const { filteredData, search } = this.state;
     const columns = [
       {
         Header: row => (
@@ -229,9 +266,6 @@ class ProductsContainer extends Component {
       },
     ];
 
-    const data = this.props.products;
-
-
     return (
       <div>
         <Grid
@@ -261,9 +295,8 @@ class ProductsContainer extends Component {
               <InputBase
                 fullWidth
                 placeholder="Search"
-
-                value={this.state.search}
-                onChange={e => this.setState({ search: e.target.value })}
+                value={search}
+                onChange={this.handleFilter.bind(this)}
               />
             </Paper>
           </Grid>
@@ -279,7 +312,7 @@ class ProductsContainer extends Component {
 
         <Grid item xs={10} md={12}>
           <ReactTable
-            data={data}
+            data={filteredData}
             columns={columns}
             defaultPageSize={this.state.pageSize}
             onPageSizeChange={pageSize => this.changePageSize(pageSize)}

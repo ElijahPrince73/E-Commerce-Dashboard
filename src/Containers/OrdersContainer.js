@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import ReactTable from 'react-table';
+import Fuse from 'fuse.js';
 import 'react-table/react-table.css';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -12,16 +13,38 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Hidden from '@material-ui/core/Hidden';
 import * as actions from '../Actions/orders';
 
+const options = {
+  shouldSort: true,
+  threshold: 0.6,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: [
+    'productName',
+    'categories',
+    'sku',
+  ],
+};
+
 class Orders extends Component {
   state = {
     search: '',
     anchorEl: null,
     remove: false,
     pageSize: 10,
+    filteredData: [],
   };
 
   componentWillMount() {
     this.props.getOrders();
+  }
+
+  componentWillReceiveProps(props) {
+    const { orders } = props;
+    if (orders.length > 0) {
+      this.setState({ filteredData: orders, data: orders });
+    }
   }
 
   changePageSize(pageSize) {
@@ -35,8 +58,24 @@ class Orders extends Component {
     );
   }
 
+  handleFilter(e) {
+    const { target } = e;
+    const { value } = target;
+    const { data } = this.state;
+
+    const fuse = new Fuse(data, options);
+    const result = fuse.search(value);
+
+    if (value === '') {
+      this.setState({ search: value, filteredData: data });
+    } else {
+      this.setState({ search: value, filteredData: result });
+    }
+  }
+
   render() {
     const { orders } = this.props;
+    const { filteredData, search } = this.state;
     const columns = [
       {
         Header: 'Order Number',
@@ -110,8 +149,8 @@ class Orders extends Component {
               <InputBase
                 fullWidth
                 placeholder="Search"
-                value={this.state.search}
-                onChange={e => this.setState({ search: e.target.value })}
+                value={search}
+                onChange={this.handleFilter.bind(this)}
               />
             </Paper>
           </Grid>
@@ -120,7 +159,7 @@ class Orders extends Component {
 
         <Grid item xs={10} md={12}>
           <ReactTable
-            data={data}
+            data={filteredData}
             columns={columns}
             defaultPageSize={this.state.pageSize}
             onPageSizeChange={pageSize => this.changePageSize(pageSize)}

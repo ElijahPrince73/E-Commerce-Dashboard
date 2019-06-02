@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import ReactTable from 'react-table';
+import Fuse from 'fuse.js';
 import 'react-table/react-table.css';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -20,6 +21,19 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import Hidden from '@material-ui/core/Hidden';
 import * as actions from '../Actions/categories';
 
+const options = {
+  shouldSort: true,
+  threshold: 0.6,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: [
+    'categoryName',
+    'categoryDescription',
+  ],
+};
+
 class CategoriesContainer extends Component {
     state = {
       search: '',
@@ -27,6 +41,7 @@ class CategoriesContainer extends Component {
       selectAll: false,
       remove: false,
       data: [],
+      filteredData: [],
       categoriesToBeDeleted: [],
       pageSize: 10,
     };
@@ -50,9 +65,32 @@ class CategoriesContainer extends Component {
       });
     }
 
+    componentWillReceiveProps(props) {
+      const { categories } = props;
+      if (categories.length > 0) {
+        this.setState({ filteredData: categories, data: categories });
+      }
+    }
+
+
     openRemoveToolTip = (event) => {
       this.setState({ anchorEl: event.currentTarget });
     };
+
+    handleFilter(e) {
+      const { target } = e;
+      const { value } = target;
+      const { data } = this.state;
+
+      const fuse = new Fuse(data, options);
+      const result = fuse.search(value);
+
+      if (value === '') {
+        this.setState({ search: value, filteredData: data });
+      } else {
+        this.setState({ search: value, filteredData: result });
+      }
+    }
 
     redirectToCatgoryDetail(productId) {
       // Send user to category detail page
@@ -112,6 +150,7 @@ class CategoriesContainer extends Component {
     render() {
       const { anchorEl } = this.state;
       const open = Boolean(anchorEl);
+      const { filteredData, search } = this.state;
 
       const columns = [
         {
@@ -205,17 +244,6 @@ class CategoriesContainer extends Component {
         },
       ];
 
-      let data = this.props.categories;
-
-      if (data) {
-        data = data.filter(
-          row =>
-            row.categoryName.includes(this.state.search)
-                    || row.category.includes(this.state.search)
-                    || String(row.age).includes(this.state.search),
-        );
-      }
-
       return (
         <div>
           <Grid
@@ -245,10 +273,8 @@ class CategoriesContainer extends Component {
                 <InputBase
                   fullWidth
                   placeholder="Search"
-                  value={this.state.search}
-                  onChange={e =>
-                    this.setState({ search: e.target.value })
-                  }
+                  value={search}
+                  onChange={this.handleFilter.bind(this)}
                 />
               </Paper>
             </Grid>
@@ -264,7 +290,7 @@ class CategoriesContainer extends Component {
 
           <Grid item xs={10} md={12}>
             <ReactTable
-              data={data}
+              data={filteredData}
               columns={columns}
               defaultPageSize={this.state.pageSize}
               onPageSizeChange={pageSize => this.changePageSize(pageSize)}

@@ -186,7 +186,9 @@ class ProductDetailContainer extends React.Component {
               <div className="products-background" />
               <Grid container item xs={6} className="products-title">
                 <Grid item xs={1}>
-                  <ArrowBack />
+                  <Link to="/products" className="back-link">
+                    <ArrowBack />
+                  </Link>
                 </Grid>
                 <Grid item xs={10} className="mt-1">
                   <Link to="/products" className="back-link">
