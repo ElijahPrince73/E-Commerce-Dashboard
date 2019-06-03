@@ -74,17 +74,19 @@ class Orders extends Component {
   }
 
   render() {
-    const { orders } = this.props;
     const { filteredData, search } = this.state;
     const columns = [
       {
-        Header: 'Order Number',
+        Header: () => (
+          <div className="ml-2">Order Number</div>
+        ),
         accessor: 'orderNumber',
         Cell: row => (
           <div className="cell-flex">
             <p className="pl-2">{row.original.orderNumber}</p>
           </div>
         ),
+        resizable: false,
       },
       {
         Header: 'Email',
@@ -118,8 +120,6 @@ class Orders extends Component {
       },
     ];
 
-    const data = orders;
-
     return (
       <div>
         <Grid
@@ -128,20 +128,20 @@ class Orders extends Component {
           justify="space-between"
           alignItems="center"
           spacing={8}
-          className="my-4"
+          className="my-5"
         >
           <div className="products-background" />
-          <Grid container item xs={3} className="products-title">
+          <Grid container item xs={2} md={3} className="products-title">
             <Grid item xs={1}>
               <ShoppingBasketIcon />
             </Grid>
             <Hidden smDown>
-              <Grid item xs={3}>
+              <Grid item xs={2} md={5}>
                 <h2 className="m-0">Orders</h2>
               </Grid>
             </Hidden>
           </Grid>
-          <Grid item xs={4} className="search-field">
+          <Grid item xs={8} className="search-field">
             <Paper className="flex">
               <IconButton aria-label="Search">
                 <SearchIcon className="pl-1" />
@@ -157,7 +157,7 @@ class Orders extends Component {
           <Grid item xs={3} className="text-right" />
         </Grid>
 
-        <Grid item xs={10} md={12}>
+        <Grid item xs={12} md={12}>
           <ReactTable
             data={filteredData}
             columns={columns}

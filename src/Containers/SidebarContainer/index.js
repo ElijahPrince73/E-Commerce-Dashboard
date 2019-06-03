@@ -59,17 +59,22 @@ class Sidebar extends React.Component {
     this.props.getProfile();
   }
 
-  handleClick = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
-
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
+
+  handleClick(event) {
+    this.setState({ anchorEl: event.currentTarget });
+  }
+
+  handleClose() {
+    this.setState({ anchorEl: null });
+  }
+
+  handleLogout() {
+    const { logoutUser } = this.props;
+    logoutUser();
+  }
 
   renderUser() {
     const { user } = this.props;
@@ -83,7 +88,7 @@ class Sidebar extends React.Component {
             className="user-email"
             aria-owns={anchorEl ? 'simple-menu' : undefined}
             aria-haspopup="true"
-            onClick={this.handleClick}
+            onClick={this.handleClick.bind(this)}
           >
             {user.email}
           </span>
@@ -91,11 +96,11 @@ class Sidebar extends React.Component {
             id="simple-menu"
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
-            onClose={this.handleClose}
+            onClose={this.handleClose.bind(this)}
             className="menu"
           >
-            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-            <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+            <MenuItem onClick={this.handleClose.bind(this)}>Profile</MenuItem>
+            <MenuItem onClick={this.handleLogout.bind(this)}>Logout</MenuItem>
           </Menu>
         </div>
       );
@@ -133,7 +138,7 @@ class Sidebar extends React.Component {
                 <IconButton
                   color="inherit"
                   aria-label="Open drawer"
-                  onClick={this.handleDrawerToggle}
+                  onClick={this.handleDrawerToggle.bind(this)}
                   className={classes.menuButton}
                 >
                   <MenuIcon className="close-icon" />
@@ -144,7 +149,7 @@ class Sidebar extends React.Component {
               variant="temporary"
               anchor={theme.direction === 'rtl' ? 'right' : 'left'}
               open={this.state.mobileOpen}
-              onClose={this.handleDrawerToggle}
+              onClose={this.handleDrawerToggle.bind(this)}
               classes={{
                 paper: 'drawer-paper',
               }}
@@ -180,6 +185,7 @@ Sidebar.propTypes = {
   component: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   getProfile: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

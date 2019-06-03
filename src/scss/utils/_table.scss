@@ -23,3 +23,115 @@
 .checkbox-padding {
     padding: 10px !important;
 }
+
+.MuiIconButton-root-62 {
+  padding: 0px 12px !important;
+}
+
+.cell-flex {
+    margin-top: 5%;
+}
+
+.search-field {
+    width: 40%;
+    z-index: 1;
+}
+
+.no-image {
+    width: 20%;
+    text-align: left;
+}
+
+.rt-thead {
+    padding: 10px 0px;
+}
+
+.ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td {
+    text-align: left;
+    border-right: none;
+}
+
+.rt-tr-group:hover {
+    background: rgba(45, 50, 62, 0.089);
+    cursor: pointer;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.ReactTable {
+  .-sort-desc {
+    box-shadow: none !important;
+    &:before {
+        font-family: "Material Icons"; 
+        content: "\e5db";
+        float: right;
+     }
+  }
+
+  .-sort-asc {
+    box-shadow: none !important;
+    &:before {
+      font-family: "Material Icons"; 
+      content: "\e5d8";
+      float: right;
+    }
+  }
+}
+
+  /*==========  Mobile First Method  ==========*/
+
+  @media only screen and (min-width : 0px) {
+    .cell-image-container {
+      width: 55px;
+      margin: auto;
+      margin-top: 5px;
+      .cell-image {
+          border-radius: 5px;
+          text-align: left;
+          background: #0000002b;
+          padding: 4px;
+      }
+    }
+  }
+
+  @media only screen and (min-width : 600px) {
+    .cell-image-container {
+      width: 60px;
+    }
+  }
+
+  @media only screen and (min-width : 960px) {
+    .cell-image-container {
+      width: 70px;
+    }
+  }
+  @media only screen and (min-width : 1280px) {
+
+  }
+
+  @media only screen and (min-width : 1920px) {
+
+  }

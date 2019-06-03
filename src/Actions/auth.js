@@ -31,13 +31,15 @@ export const registerUser = values => (dispatch) => {
     });
 };
 
-export const logoutUser = () => {
+export const logoutUser = () => () => {
   axios
-    .delete('http://localhost:5000/api/me/token', {
+    .post('http://localhost:5000/api/logout', {
+      token: localToken,
+    }, {
       headers: { 'x-auth': localToken },
     })
     .then(() => {
-      localStorage.removeItem('header');
+      localStorage.clear();
       window.location.href = '/';
     });
 };

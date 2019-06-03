@@ -1868,3 +1868,29 @@ a:hover {
 p {
   margin-top: 0 !important;
 }
+
+
+  /*==========  Mobile First Method  ==========*/
+
+  @media only screen and (min-width : 0px) {
+    .Connect-Sidebar--content-6 {
+      padding: 24px 7px !important;
+    }
+  }
+
+  @media only screen and (min-width : 600px) {
+    .Connect-Sidebar--content-6 {
+      padding: 24px 24px !important;
+    }
+  }
+
+  @media only screen and (min-width : 960px) {
+
+  }
+  @media only screen and (min-width : 1280px) {
+
+  }
+
+  @media only screen and (min-width : 1920px) {
+
+  }

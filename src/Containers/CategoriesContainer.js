@@ -167,7 +167,7 @@ class CategoriesContainer extends Component {
               checked={this.state.checked[row.index]}
               onChange={this.selectOneProduct.bind(this, row)}
               color="primary"
-              className="checkbox-padding"
+              className="checkbox-padding mt-3"
             />
           ),
           minWidth: 18,
@@ -208,14 +208,13 @@ class CategoriesContainer extends Component {
           ),
           resizable: false,
           minWidth: 30,
-          accessor: 'image',
           sortable: false,
         },
         {
           Header: 'Catgeory Name',
           accessor: 'categoryName',
           Cell: row => (
-            <div className="cell-flex">
+            <div className="cell-flex" onClick={() => this.redirectToCatgoryDetail(row.original._id)}>
               <p className="pl-2">
                 {row.original.categoryName}
               </p>
@@ -226,7 +225,7 @@ class CategoriesContainer extends Component {
           Header: 'Category Desc.',
           accessor: 'categoryDescription',
           Cell: row => (
-            <div className="cell-flex">
+            <div className="cell-flex" onClick={() => this.redirectToCatgoryDetail(row.original._id)}>
               <p className="pl-1">{row.original.categoryDescription}</p>
             </div>
           ),
@@ -236,7 +235,7 @@ class CategoriesContainer extends Component {
           Header: '# of Products',
           accessor: 'categories',
           Cell: row => (
-            <div className="cell-flex">
+            <div className="cell-flex" onClick={() => this.redirectToCatgoryDetail(row.original._id)}>
               <p>{row.original.productList.length}</p>
             </div>
           ),
@@ -252,20 +251,20 @@ class CategoriesContainer extends Component {
             justify="space-between"
             alignItems="center"
             spacing={8}
-            className="my-4"
+            className="my-5"
           >
             <div className="products-background" />
-            <Grid container item xs={3} className="products-title">
+            <Grid container item xs={2} md={3} className="products-title">
               <Grid item xs={1}>
                 <CategoriesListIcon />
               </Grid>
               <Hidden smDown>
-                <Grid item xs={3}>
+                <Grid item xs={2} md={5}>
                   <h2 className="m-0">Categories</h2>
                 </Grid>
               </Hidden>
             </Grid>
-            <Grid item xs={4} className="search-field">
+            <Grid item xs={5} className="search-field">
               <Paper className="flex">
                 <IconButton aria-label="Search">
                   <SearchIcon className="pl-1" />
@@ -278,7 +277,7 @@ class CategoriesContainer extends Component {
                 />
               </Paper>
             </Grid>
-            <Grid item xs={3} className="text-right">
+            <Grid item xs={5} md={3} className="text-right">
               <Button
                 variant="contained"
                 onClick={() => (window.location.href = '/categories/new')}
@@ -288,16 +287,12 @@ class CategoriesContainer extends Component {
             </Grid>
           </Grid>
 
-          <Grid item xs={10} md={12}>
+          <Grid item xs={12} md={12}>
             <ReactTable
               data={filteredData}
               columns={columns}
               defaultPageSize={this.state.pageSize}
               onPageSizeChange={pageSize => this.changePageSize(pageSize)}
-              getTrProps={(state, rowInfo) => ({
-                onClick: () =>
-                  this.redirectToCatgoryDetail(rowInfo.original._id),
-              })}
             />
           </Grid>
         </div>
