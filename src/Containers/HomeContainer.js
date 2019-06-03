@@ -62,7 +62,7 @@ class HomePage extends Component {
 
     render() {
       const { loading, error } = this.props.auth;
-      console.log(error);
+
       return (
         <div className="promo-intro">
           <Grid container>
