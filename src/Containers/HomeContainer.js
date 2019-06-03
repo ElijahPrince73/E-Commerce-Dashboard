@@ -61,6 +61,8 @@ class HomePage extends Component {
     }
 
     render() {
+      const { loading, error } = this.props.auth;
+      console.log(error);
       return (
         <div className="promo-intro">
           <Grid container>
@@ -94,6 +96,8 @@ class HomePage extends Component {
                     email={this.state.email}
                     password={this.state.password}
                     showSignUpForm={this.showSignUpForm.bind(this)}
+                    loading={loading}
+                    error={error}
                   />
                 </Slide>
               ) : null}
@@ -108,6 +112,8 @@ class HomePage extends Component {
                       password={this.state.password}
                       passwordConf={this.state.passwordConf}
                       showLoginForm={this.showLoginForm.bind(this)}
+                      loading={loading}
+                      error={error}
                     />
                   </Slide>
                 )
@@ -122,6 +128,7 @@ class HomePage extends Component {
 HomePage.propTypes = {
   registerUser: PropTypes.func.isRequired,
   loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {

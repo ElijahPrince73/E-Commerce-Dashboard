@@ -10,3 +10,4 @@ export const CREATE_CATEGORIES = 'CREATE_CATEGORIES';
 export const GET_ORDERS = 'GET_ORDERS';
 export const GET_ORDER = 'GET_ORDER';
 export const GET_PRODUCT = 'GET_PRODUCT';
+export const LOADING = 'LOADING';

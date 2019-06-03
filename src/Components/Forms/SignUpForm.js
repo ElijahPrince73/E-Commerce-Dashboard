@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const SignUpForm = props => (
   <div>
@@ -59,13 +60,22 @@ const SignUpForm = props => (
           value={props.passwordConf}
           id="passwordConf"
         />
-        <Button variant="contained" className="mt-3 dark-btn" type="submit">
-          CREATE AN ACCOUNT
-        </Button>
+        {!props.loading ? (
+          <Button variant="contained" className="mt-3 dark-btn" type="submit">
+            CREATE ACCOUNT
+          </Button>
+        ) : (
+          <div className="text-center mt-3">
+            <CircularProgress />
+          </div>
+        )}
+
+        {props.error ? <div className="error-message mt-3">Invalid username or password</div> : null}
 
         <Button onClick={props.showLoginForm} className="mt-5" fullWidth>
           LOGIN
         </Button>
+
       </form>
     </Grid>
   </div>
@@ -79,6 +89,8 @@ SignUpForm.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   passwordConf: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.bool.isRequired,
 };
 
 

@@ -1869,6 +1869,14 @@ p {
   margin-top: 0 !important;
 }
 
+.error-message {
+  background-color: $red !important;
+  padding: 5px;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+}
+
 
   /*==========  Mobile First Method  ==========*/
 

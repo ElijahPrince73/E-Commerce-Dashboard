@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { GET_USER, ERROR } from './types';
+import { GET_USER, ERROR, LOADING } from './types';
 
 const localToken = localStorage.getItem('token');
 
 const setToken = token => localStorage.setItem('token', token);
 
 export const loginUser = values => (dispatch) => {
+  dispatch({ type: LOADING });
   axios
     .post('http://localhost:5000/api/admin-login', values)
     .then((res) => {
@@ -14,11 +15,12 @@ export const loginUser = values => (dispatch) => {
       window.location.href = '/products';
     })
     .catch(() => {
-      dispatch({ type: ERROR, payload: 'error' });
+      dispatch({ type: ERROR });
     });
 };
 
 export const registerUser = values => (dispatch) => {
+  dispatch({ type: LOADING });
   axios
     .post('http://localhost:5000/api/admin-register', values)
     .then((res) => {
@@ -27,7 +29,7 @@ export const registerUser = values => (dispatch) => {
       window.location.href = '/products';
     })
     .catch(() => {
-      dispatch({ type: ERROR, payload: 'error' });
+      dispatch({ type: ERROR });
     });
 };
 
