@@ -3,7 +3,7 @@ language: node_js
 
 node_js:
   - "11"
-  
+
 services: 
  - docker
 
@@ -11,4 +11,17 @@ before_install:
  - docker build -t elijahprince73/e-commerce-dashboard -f dev.Dockerfile .
 
 scripts: 
-  -  docker run -v ${PWD}:/app -v /app/node_modules -p 3001:3000 --rm elijahprince73/e-commerce-dashboard npm run test -- --coverage
+  -  docker run -v ${PWD}:/app -v /app/node_modules -p 3001:3000 --rm elijahprince73/e-commerce-dashboard npm run test -- --coverage 
+
+deploy: 
+  provider: elasticbeanstalk
+  region: us-west-1
+  app: "e-commerce-dashboard"
+  env: "ECommerceDashboard-env"
+  bucket_name: "elasticbeanstalk-us-west-1-784098998479"
+  bucket_path: "e-commerce-dashboard"
+  on: 
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: $AWS_SECRET_KEY
