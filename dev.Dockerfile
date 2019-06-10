@@ -6,7 +6,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 COPY package.json /app/package.json
 
-RUN yarn
-RUN yarn global add react-scripts@3.0.1
+RUN npm install
+RUN npm install react-scripts@3.0.1 -g
 
-CMD ["yarn", "start"]
+CMD ["npm", "start"]

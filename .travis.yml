@@ -1,0 +1,9 @@
+sudo: required
+services: 
+ - docker
+
+before_install:
+ - docker build -t elijahprince73/e-commerce-dashboard -f dev.Dockerfile .
+
+scripts: 
+  -  docker run -v ${PWD}:/app -v /app/node_modules -p 3001:3000 --rm elijahprince73/e-commerce-dashboard npm run test -- --coverage

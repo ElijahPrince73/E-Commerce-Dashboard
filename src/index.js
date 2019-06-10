@@ -1,3 +1,4 @@
+/* eslint-disable react/no-render-return-value */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -7,7 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import './scss/styles.scss';
 import 'typeface-roboto';
 
-const render = Component => ReactDOM.render(
+const render = () => ReactDOM.render(
   <Provider store={configureStore()}>
     <App />
   </Provider>,
@@ -18,6 +19,7 @@ render(App);
 
 if (module.hot) {
   module.hot.accept('./App', () => {
+    // eslint-disable-next-line global-require
     const NextApp = require('./App').default;
     render(NextApp);
   });

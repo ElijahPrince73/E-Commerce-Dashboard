@@ -1,11 +1,11 @@
 version: '3.7'
 
 services: 
-  sample:
-    container_name: sample
+  client:
+    container_name: dev
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dev.Dockerfile
     volumes:
       - '.:/app'
       - '/app/node_modules'
