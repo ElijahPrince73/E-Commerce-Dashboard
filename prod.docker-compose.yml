@@ -1,8 +1,7 @@
 version: '3.7'
 
 services:
-  sample-prod:
-    container_name: prod
+  client:
     build:
       context: .
       dockerfile: prod.Dockerfile
