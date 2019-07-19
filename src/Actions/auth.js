@@ -8,7 +8,7 @@ const setToken = token => localStorage.setItem('token', token);
 export const loginUser = values => (dispatch) => {
   dispatch({ type: LOADING });
   axios
-    .post('http://localhost:5000/api/admin-login', values)
+    .post(`${process.env.REACT_APP_API_URL}/api/admin-login`, values)
     .then((res) => {
       dispatch({ type: GET_USER, payload: res.data });
       setToken(res.data);
@@ -22,7 +22,7 @@ export const loginUser = values => (dispatch) => {
 export const registerUser = values => (dispatch) => {
   dispatch({ type: LOADING });
   axios
-    .post('http://localhost:5000/api/admin-register', values)
+    .post(`${process.env.REACT_APP_API_URL}api/admin-register`, values)
     .then((res) => {
       dispatch({ type: GET_USER, payload: res.data });
       setToken(res.data);
@@ -35,7 +35,7 @@ export const registerUser = values => (dispatch) => {
 
 export const logoutUser = () => () => {
   axios
-    .post('http://localhost:5000/api/logout', {
+    .post(`${process.env.REACT_APP_API_URL}api/logout`, {
       token: localToken,
     }, {
       headers: { 'x-auth': localToken },
@@ -49,7 +49,7 @@ export const logoutUser = () => () => {
 
 export const getProfile = () => (dispatch) => {
   axios
-    .get('http://localhost:5000/api/me', {
+    .get(`${process.env.REACT_APP_API_URL}api/me`, {
       headers: { 'x-auth': localToken },
     })
     .then((res) => {

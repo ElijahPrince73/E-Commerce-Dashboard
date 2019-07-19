@@ -8,7 +8,7 @@ const localToken = localStorage.getItem('token');
 // Gets all products
 export const getProducts = () => (dispatch) => {
   axios
-    .get('http://localhost:5000/api/products', {
+    .get(`${process.env.REACT_APP_API_URL}/api/products`, {
       headers: { 'x-auth': localToken },
       params: { access: 'admin' },
     })
@@ -23,7 +23,7 @@ export const getProducts = () => (dispatch) => {
 // Gets one product
 export const getProduct = productId => (dispatch) => {
   axios
-    .get(`http://localhost:5000/api/product/${productId}`, {
+    .get(`${process.env.REACT_APP_API_URL}/api/product/${productId}`, {
       headers: { 'x-auth': localToken },
       params: { access: 'admin' },
     })
@@ -36,7 +36,7 @@ export const getProduct = productId => (dispatch) => {
 };
 
 export const updateProduct = (productId, values) => (dispatch) => {
-  axios.put(`http://localhost:5000/api/product/${productId}`, values, {
+  axios.put(`${process.env.REACT_APP_API_URL}/api/product/${productId}`, values, {
     headers: { 'x-auth': localToken },
   })
     .then(() => {
@@ -48,7 +48,7 @@ export const updateProduct = (productId, values) => (dispatch) => {
 
 export const deleteProducts = ids => (dispatch) => {
   axios
-    .post('http://localhost:5000/api/products-delete', { ids }, {
+    .post(`${process.env.REACT_APP_API_URL}/api/products-delete`, { ids }, {
       headers: { 'x-auth': localToken },
     })
     .then(() => {
@@ -61,7 +61,7 @@ export const deleteProducts = ids => (dispatch) => {
 
 export const createProduct = values => (dispatch) => {
   axios
-    .post('http://localhost:5000/api/products', values, {
+    .post(`${process.env.REACT_APP_API_URL}/api/products`, values, {
       headers: {
         'x-auth': localToken,
         'content-type': 'multipart/form-data',

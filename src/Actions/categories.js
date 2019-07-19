@@ -11,7 +11,7 @@ const localToken = localStorage.getItem('token');
 
 export const getCategories = () => (dispatch) => {
   axios
-    .get('http://localhost:5000/api/categories', {
+    .get(`${process.env.REACT_APP_API_URL}/api/categories`, {
       headers: { 'x-auth': localToken },
       params: { access: 'admin' },
     })
@@ -25,7 +25,7 @@ export const getCategories = () => (dispatch) => {
 
 export const getCategory = categoryId => (dispatch) => {
   axios
-    .get(`http://localhost:5000/api/categories/${categoryId}`, {
+    .get(`${process.env.REACT_APP_API_URL}/api/categories/${categoryId}`, {
       headers: { 'x-auth': localToken },
       params: { access: 'admin' },
     })
@@ -39,7 +39,7 @@ export const getCategory = categoryId => (dispatch) => {
 
 export const deleteCategories = ids => (dispatch) => {
   axios
-    .post('http://localhost:5000/api/categories-delete', { ids }, {
+    .post(`${process.env.REACT_APP_API_URL}/api/categories-delete`, { ids }, {
       headers: { 'x-auth': localToken },
     })
     .then(() => {
@@ -51,7 +51,7 @@ export const deleteCategories = ids => (dispatch) => {
 };
 
 export const updateCategory = (categoryId, values) => (dispatch) => {
-  axios.put(`http://localhost:5000/api/categories/${categoryId}`, values, {
+  axios.put(`${process.env.REACT_APP_API_URL}/api/categories/${categoryId}`, values, {
     headers: { 'x-auth': localToken },
   })
     .then(() => {
@@ -64,7 +64,7 @@ export const updateCategory = (categoryId, values) => (dispatch) => {
 
 export const createCategory = values => (dispatch) => {
   axios
-    .post('http://localhost:5000/api/categories', values, {
+    .post(`${process.env.REACT_APP_API_URL}/api/categories`, values, {
       headers: {
         'x-auth': localToken,
       },

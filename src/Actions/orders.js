@@ -5,7 +5,7 @@ const localToken = localStorage.getItem('token');
 
 export const getOrders = () => (dispatch) => {
   axios
-    .get('http://localhost:5000/api/orders', {
+    .get(`${process.env.REACT_APP_API_URL}/api/orders`, {
       headers: { 'x-auth': localToken },
       params: { access: 'admin' },
     })
@@ -19,7 +19,7 @@ export const getOrders = () => (dispatch) => {
 
 export const getOrder = orderId => (dispatch) => {
   axios
-    .get(`http://localhost:5000/api/orders/${orderId}`, {
+    .get(`${process.env.REACT_APP_API_URL}/api/orders/${orderId}`, {
       headers: { 'x-auth': localToken },
       params: { access: 'admin' },
     })
