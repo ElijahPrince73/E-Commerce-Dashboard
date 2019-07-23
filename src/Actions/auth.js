@@ -24,7 +24,7 @@ export const loginUser = values => (dispatch) => {
 export const registerUser = values => (dispatch) => {
   dispatch({ type: LOADING });
   axios
-    .post(`${process.env.REACT_APP_API_URL}api/admin-register`, values)
+    .post(`${process.env.REACT_APP_API_URL}/api/admin-register`, values)
     .then((res) => {
       dispatch({ type: GET_USER, payload: res.data });
       setToken(res.data);
