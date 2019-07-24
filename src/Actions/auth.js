@@ -35,7 +35,7 @@ export const registerUser = values => (dispatch) => {
 
 export const logoutUser = () => () => {
   axios
-    .post(`${process.env.REACT_APP_API_URL}api/logout`, {
+    .post(`${process.env.REACT_APP_API_URL}/api/logout`, {
       token: localToken,
     }, {
       headers: { 'x-auth': localToken },
@@ -49,7 +49,7 @@ export const logoutUser = () => () => {
 
 export const getProfile = () => (dispatch) => {
   axios
-    .get(`${process.env.REACT_APP_API_URL}api/me`, {
+    .get(`${process.env.REACT_APP_API_URL}/api/me`, {
       headers: { 'x-auth': localToken },
     })
     .then((res) => {
