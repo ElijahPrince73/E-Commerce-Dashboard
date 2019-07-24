@@ -26,12 +26,13 @@ const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
 );
 
 const AdminLayout = (props) => {
-  axios.get("http://localhost:5000/api/me", {
-    headers: { "x-auth": localStorage.getItem('token') }
-  })
-  .then((res) => {
-    window.location.href = '/products'
-  })
+  axios
+    .get(`${process.env.REACT_APP_API_URL}api/me`, {
+      headers: { "x-auth": localStorage.getItem("token") }
+    })
+    .then(res => {
+      window.location.href = "/products";
+    });
 
     return (
         <div>
