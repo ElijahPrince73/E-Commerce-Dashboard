@@ -27,7 +27,7 @@ const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
 
 const AdminLayout = (props) => {
   axios
-    .get(`${process.env.REACT_APP_API_URL}api/me`, {
+    .get(`${process.env.REACT_APP_API_URL}/api/me`, {
       headers: { "x-auth": localStorage.getItem("token") }
     })
     .then(res => {

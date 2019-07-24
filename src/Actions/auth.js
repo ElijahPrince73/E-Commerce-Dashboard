@@ -5,8 +5,6 @@ const localToken = localStorage.getItem('token');
 
 const setToken = token => localStorage.setItem('token', token);
 
-console.log(process.env.REACT_APP_API_URL);
-
 export const loginUser = values => (dispatch) => {
   dispatch({ type: LOADING });
   axios
